@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr.domain;
 
 import java.sql.Date;
 
-public class Records {
+public class Records{
     private int record_id;
     private int patient_id;
     private int doctor_id;
