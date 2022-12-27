@@ -15,9 +15,12 @@ public class Patients {
     private int record_id;
     private String password;
     private String username;
+    private int doctor_id;
+
+    public Patients() {}
 
     public Patients(int patient_id, String first_name, String last_name, String address, String email,
-                    String telephone, int age, String gender, int record_id, String password, String username) {
+                    String telephone, int age, String gender, int record_id, String password, String username, int doctor_id) {
         this.patient_id = patient_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -29,6 +32,7 @@ public class Patients {
         this.record_id = record_id;
         this.password = password;
         this.username = username;
+        this.doctor_id = doctor_id;
     }
 
     public String getPassword() {
@@ -118,5 +122,12 @@ public class Patients {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+    public int getDoctor_id() {
+        return doctor_id;
+    }
+
+    public void setDoctor_id(int doctor_id) {
+        this.doctor_id = doctor_id;
     }
 }
