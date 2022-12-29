@@ -4,5 +4,6 @@ import ba.unsa.etf.rpr.dao.Dao;
 import ba.unsa.etf.rpr.domain.Patients;
 
 public interface PatientsDao extends Dao<Patients> {
-    Patients findByName(String name);
+    Patients findByUsername(String username);
+    int numberOfRows();
 }
