@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
+import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 
 import java.io.FileReader;
@@ -26,20 +27,21 @@ public class PatientsDaoImpl implements PatientsDao{
         String query = "INSERT INTO PATIENTS(id, first_name, last_name," +
                 "address, email," +
                 " telephone, age, gender," +
-                "record_id, password, username ) VALUES (?,?,?,?,?,?,?,?,?,?,?) ";
+                "record_id, password, username, doctor_id ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1,item.getPatient_id());
             stmt.setString(2,item.getFirst_name());
             stmt.setString(3,item.getLast_name());
-            stmt.setString(5,item.getAddress());
-            stmt.setString(6, item.getEmail());
-            stmt.setString(7, item.getTelephone());
-            stmt.setInt(8,item.getAge());
-            stmt.setString(9, item.getGender());
-            stmt.setInt(10, item.getRecord_id());
-            stmt.setString(11,item.getPassword());
-            stmt.setString(12,item.getUsername());
+            stmt.setString(4,item.getAddress());
+            stmt.setString(5, item.getEmail());
+            stmt.setString(6, item.getTelephone());
+            stmt.setInt(7,item.getAge());
+            stmt.setString(8, item.getGender());
+            stmt.setInt(9, item.getRecord_id());
+            stmt.setString(10,item.getPassword());
+            stmt.setString(11,item.getUsername());
+            stmt.setInt(12,item.getDoctor_id());
             stmt.executeUpdate();
             stmt.close();
         }catch(SQLException sqle){
@@ -51,21 +53,22 @@ public class PatientsDaoImpl implements PatientsDao{
     public void update(Patients item, int id) {
         String query = "UPDATE PATIENTS SET first_name = ?, last_name = ?, address = ?," +
                 "email = ?, telephone = ?, age = ?, gender = ?, record_id = ?, " +
-                "password = ?, username = ?" +
-                "WHERE patient_id = " + id;
+                "password = ?, username = ?, doctor_id = ?" +
+                "WHERE id = " + id;
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1,item.getPatient_id());
             stmt.setString(2,item.getFirst_name());
             stmt.setString(3,item.getLast_name());
-            stmt.setString(5,item.getAddress());
-            stmt.setString(6, item.getEmail());
-            stmt.setString(7, item.getTelephone());
-            stmt.setInt(8,item.getAge());
-            stmt.setString(9, item.getGender());
-            stmt.setInt(10, item.getRecord_id());
-            stmt.setString(11,item.getPassword());
-            stmt.setString(12,item.getUsername());
+            stmt.setString(4,item.getAddress());
+            stmt.setString(5, item.getEmail());
+            stmt.setString(6, item.getTelephone());
+            stmt.setInt(7,item.getAge());
+            stmt.setString(8, item.getGender());
+            stmt.setInt(9, item.getRecord_id());
+            stmt.setString(10,item.getPassword());
+            stmt.setString(11,item.getUsername());
+            stmt.setInt(12,item.getDoctor_id());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException sqle){
@@ -86,7 +89,8 @@ public class PatientsDaoImpl implements PatientsDao{
                         res.getString("address"), res.getString("email"),
                         res.getString("telephone"), res.getInt("age"),
                         res.getString("gender"), res.getInt("record_id"),
-                        res.getString("password"), res.getString("username"));
+                        res.getString("password"), res.getString("username"),
+                        res.getInt("doctor_id"));
             }
             //vidi treba li stmt.executeUpdate
             stmt.close();
@@ -109,7 +113,42 @@ public class PatientsDaoImpl implements PatientsDao{
     }
 
     @Override
-    public Patients findByName(String name) {
-        return null;
+    public Patients findByUsername(String username) {
+        Patients patient = null;
+        try{
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM PATIENTS WHERE username = '" + username + "'");
+            while(res.next()){
+                patient = new Patients(res.getInt("id"), res.getString("first_name"),
+                        res.getString("last_name"), res.getString("address"),
+                        res.getString("email"), res.getString("telephone"),
+                        res.getInt("age"), res.getString("gender"),
+                        res.getInt("record_id"), res.getString("password"),
+                        res.getString("username"), res.getInt("doctor_id"));
+            }
+        }catch (SQLException sqle){
+            System.out.println(sqle.getErrorCode());
+        }
+        return patient;
+    }
+
+    @Override
+    public int numberOfRows() {
+        int num=0;
+        String query = "select count(id) from PATIENTS;";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(query);
+            /*while(res.next()){
+                num = res.getInt(1);
+            }*/
+            res.next();
+            num = res.getInt(1);
+            System.out.println(num);
+            stmt.close();
+        }catch (SQLException sqle){
+            System.out.println(sqle.getErrorCode());
+        }
+        return num;
     }
 }
