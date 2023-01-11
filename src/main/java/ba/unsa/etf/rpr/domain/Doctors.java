@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.domain;
 
-public class Doctors {
+public class Doctors implements Idable {
     private int doctor_id;
     private String first_name;
     private String last_name;
@@ -28,6 +28,8 @@ public class Doctors {
         this.password = password;
         this.username = username;
     }
+
+    public Doctors(){}
 
     public int getDoctor_id() {
         return doctor_id;
@@ -116,5 +118,15 @@ public class Doctors {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.doctor_id = doctor_id;
+    }
+
+    @Override
+    public int getId() {
+        return doctor_id;
     }
 }
