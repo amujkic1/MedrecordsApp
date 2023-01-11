@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.domain;
 import java.sql.Date;
 
 //builder pattern
-public class Patients {
+public class Patients implements Idable {
     private int patient_id;
     private String first_name;
     private String last_name;
@@ -123,11 +123,27 @@ public class Patients {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    @Override
+    public String toString(){
+        return first_name + " " + last_name;
+    }
+
     public int getDoctor_id() {
         return doctor_id;
     }
 
     public void setDoctor_id(int doctor_id) {
         this.doctor_id = doctor_id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.patient_id = patient_id;
+    }
+
+    @Override
+    public int getId() {
+        return patient_id;
     }
 }
