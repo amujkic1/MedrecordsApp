@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Idable;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -15,7 +14,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         try {
             this.tableName = tableName;
             Properties p = new Properties();
-            p.load(ClassLoader.getSystemResource("/database.properties").openStream());
+            p.load(getClass().getResource("/database.properties").openStream());
             String url = p.getProperty("url");
             String username = p.getProperty("username");
             String password = p.getProperty("password");
@@ -65,6 +64,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         }
     }
 
+    @Override
     public void add(T item) {
         Map<String, Object> row = objectToRow(item);
         Map.Entry<String, String> columns = prepareInsertParts(row);
