@@ -5,13 +5,17 @@ import ba.unsa.etf.rpr.domain.Records;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
-public class RecordsDaoImpl implements RecordsDao {
+public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
 
-    private Connection conn;
+    //private Connection conn;
+    private static RecordsDaoImpl instance = null;
     public RecordsDaoImpl(){
-        Properties dbProp = new Properties();
+        super("RECORDS");
+        /*Properties dbProp = new Properties();
         try{
             dbProp.load(RecordsDaoImpl.class.getResource("/database.properties").openStream());
             conn = DriverManager.getConnection(dbProp.getProperty("url"), dbProp.getProperty("username"), dbProp.getProperty("password"));
@@ -19,10 +23,21 @@ public class RecordsDaoImpl implements RecordsDao {
             ioe.printStackTrace();
         }catch(SQLException sqle){
             System.out.println(sqle.getErrorCode());
-        }
+        }*/
     }
 
-    @Override
+    public static RecordsDaoImpl getInstance(){
+        if(instance==null)
+            instance = new RecordsDaoImpl();
+        return instance;
+    }
+
+    public static void removeInstance(){
+        if(instance!=null)
+            instance=null;
+    }
+
+    /*@Override
     public void add(Records item) {
         String query = "INSERT INTO RECORDS(id, patient_id, doctor_id, diagnosis, first_checkup_date)" +
                 "VALUES(?,?,?,?,?)";
@@ -58,9 +73,42 @@ public class RecordsDaoImpl implements RecordsDao {
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
+    }*/
+
+    @Override
+    public Records rowToObject(ResultSet rs) {
+        try {
+            Records rec = new Records();
+            rec.setId(rs.getInt("id"));
+            rec.setPatient_id(rs.getInt("patient_id"));
+            rec.setDoctor_id(rs.getInt("doctor_id"));
+            rec.setDiagnosis(rs.getString("diagnosis"));
+            rec.setAllergies(rs.getString("allergies"));
+            rec.setTreatments(rs.getString("treatments"));
+            rec.setHeight(rs.getDouble("height"));
+            rec.setWeight(rs.getDouble("weight"));
+            return rec;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
+    public Map<String, Object> objectToRow(Records object) {
+        Map<String, Object> row = new TreeMap<>();
+        row.put("id", object.getId());
+        row.put("patient_id", object.getPatient_id());
+        row.put("doctor_id", object.getDoctor_id());
+        row.put("diagnosis", object.getDiagnosis());
+        row.put("allergies", object.getAllergies());
+        row.put("treatments", object.getTreatments());
+        row.put("height", object.getHeight());
+        row.put("weight", object.getWeight());
+        return row;
+    }
+
+    /*@Override
     public Records getById(int id) {
         Records r = null;
         try{
@@ -88,5 +136,5 @@ public class RecordsDaoImpl implements RecordsDao {
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
-    }
+    }*/
 }
