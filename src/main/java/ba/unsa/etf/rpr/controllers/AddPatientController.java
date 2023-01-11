@@ -3,14 +3,17 @@ package ba.unsa.etf.rpr.controllers;
 //napravi metodu generatId koja daje sljedeci moguci id u tabeli na nacin da vrati preko fje COUNT broj redova i da sljedeci
 // provjera da li postoji zadani id za svaki slucaj
 
+import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
 import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
 import ba.unsa.etf.rpr.domain.Patients;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -66,6 +69,7 @@ public class AddPatientController implements Initializable {
     private Button addbttn;
     @FXML
     private Button cancelbttn;
+
 private Connection conn;
 
     public AddPatientController() {
@@ -82,6 +86,7 @@ private Connection conn;
 
     public void addPatientToBase(){
         PatientsDaoImpl p = new PatientsDaoImpl();
+        DoctorsDaoImpl doc = new DoctorsDaoImpl();
 
         Patients patient = new Patients(generateId(), first_name_box.getText(), last_name_box.getText(),
                 address_box.getText(), email_box.getText(), telephone_box.getText(), Integer.parseInt(age_box.getText()),
@@ -98,6 +103,10 @@ private Connection conn;
         return num+1;
     }
 
+    public void cancel(ActionEvent event) {
+        Stage stage = (Stage) cancelbttn.getScene().getWindow();
+        stage.close();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
