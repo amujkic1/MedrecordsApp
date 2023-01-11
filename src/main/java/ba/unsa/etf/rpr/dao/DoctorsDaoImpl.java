@@ -1,19 +1,61 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Doctors;
+import ba.unsa.etf.rpr.domain.Idable;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
-public class DoctorsDaoImpl implements DoctorsDao {
+public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
+    @Override
+    public Doctors rowToObject(ResultSet rs) {
+        try {
+            Doctors doc = new Doctors();
+            doc.setId(rs.getInt("id"));
+            doc.setFirst_name(rs.getString("first_name"));
+            doc.setLast_name(rs.getString("last_name"));
+            doc.setAddress(rs.getString("address"));
+            doc.setEmail(rs.getString("email"));
+            doc.setTelephone(rs.getString("telephone"));
+            doc.setAge(rs.getInt("age"));
+            doc.setGender(rs.getString("gender"));
+            doc.setSpecialization(rs.getString("specialization"));
+            doc.setPassword(rs.getString("password"));
+            doc.setUsername(rs.getString("username"));
+            return doc;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    private Connection conn;
+    @Override
+    public Map<String, Object> objectToRow(Doctors object) {
+        Map<String, Object> row = new TreeMap<>();
+        row.put("id", object.getId());
+        row.put("first_name", object.getFirst_name());
+        row.put("last_name", object.getLast_name());
+        row.put("address", object.getAddress());
+        row.put("email", object.getEmail());
+        row.put("telephone", object.getTelephone());
+        row.put("age", object.getAge());
+        row.put("gender", object.getGender());
+        row.put("specialization", object.getSpecialization());
+        row.put("password", object.getPassword());
+        row.put("username", object.getUsername());
+        return row;
+    }
+
+    //private Connection conn;
+    private static DoctorsDaoImpl instance = null;
     public DoctorsDaoImpl(){
-        Properties dbProp = new Properties();
+        super("DOCTORS");
+        /*Properties dbProp = new Properties();
         try{
             dbProp.load(DoctorsDaoImpl.class.getResource("/database.properties").openStream());
             conn = DriverManager.getConnection(dbProp.getProperty("url"), dbProp.getProperty("username"), dbProp.getProperty("password"));
@@ -21,10 +63,21 @@ public class DoctorsDaoImpl implements DoctorsDao {
             ioe.printStackTrace();
         }catch(SQLException sqle){
             System.out.println(sqle.getErrorCode());
-        }
+        }*/
     }
 
-    @Override
+    public static DoctorsDaoImpl getInstance(){
+        if(instance==null)
+            instance = new DoctorsDaoImpl();
+        return instance;
+    }
+
+    public static void removeInstance(){
+        if(instance!=null)
+            instance=null;
+    }
+
+    /*@Override
     public void add(Doctors item) {
         String query = "INSERT INTO DOCTORS(id, first_name, last_name, address, email," +
                 "telephone, age, gender, specialization, password, username)" +
@@ -47,9 +100,9 @@ public class DoctorsDaoImpl implements DoctorsDao {
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void update(Doctors item, int id) {
         String query = "UPDATE DOCTORS SET first_name = ?, last_name = ?, address = ?," +
                 "email = ?, telephone = ?, age = ?, gender = ?, specialization = ?," +
@@ -73,9 +126,9 @@ public class DoctorsDaoImpl implements DoctorsDao {
         }catch(SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Doctors getById(int id) {
         Doctors d = null;
         try{
@@ -93,9 +146,9 @@ public class DoctorsDaoImpl implements DoctorsDao {
             System.out.println(sqle.getErrorCode());
         }
         return d;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void delete(int id) {
         String query = "DELETE FROM DOCTORS WHERE id = " + id;
         try {
@@ -105,12 +158,12 @@ public class DoctorsDaoImpl implements DoctorsDao {
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
-    }
+    }*/
 
     public Doctors searchByUsername(String username){
         Doctors d = null;
         try{
-            Statement stmt = conn.createStatement();
+            Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM DOCTORS WHERE username = '" + username + "'");
             while(res.next()){
                 d = new Doctors(res.getInt("id"), res.getString("first_name"),
