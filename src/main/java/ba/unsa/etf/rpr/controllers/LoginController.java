@@ -56,8 +56,10 @@ public class LoginController implements Initializable {
             if(choice.getValue().equals("Doctor")){
                 System.out.println("doctor");
             }
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterdoctorlogin.fxml"));
-            AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(username.getText());
+            AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(username.getText(),
+                    doc.searchByUsername(username.getText()).getId());
             fxmlLoader.setController(afterDoctorLoginController);
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
@@ -71,7 +73,15 @@ public class LoginController implements Initializable {
                 && pt.searchByUsername(username.getText()).getPassword().equals(password.getText())){
             if(choice.getValue().equals("Patient")){
                 System.out.println("patient");
-                //m.switchScenes("/fxml/afterpatientlogin.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterpatientlogin.fxml"));
+                AfterPatientLoginController afterPatientLoginController = new AfterPatientLoginController(username.getText());
+                fxmlLoader.setController(afterPatientLoginController);
+                Parent root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+                stage.show();
+                Stage s = (Stage)username.getScene().getWindow();
+                s.close();
             }
         }
 
@@ -90,6 +100,19 @@ public class LoginController implements Initializable {
     {
         choice.getItems().addAll("Doctor", "Patient");
     }
+
+    /*public void switchScenes(String fxml, String controllerName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+
+        AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(username.getText());
+        fxmlLoader.setController(afterDoctorLoginController);
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        stage.show();
+        Stage s = (Stage)username.getScene().getWindow();
+        s.close();
+    }*/
 
 
 }
