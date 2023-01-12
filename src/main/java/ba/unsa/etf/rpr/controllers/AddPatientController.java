@@ -69,9 +69,12 @@ public class AddPatientController implements Initializable {
     private Button addbttn;
     @FXML
     private Button cancelbttn;
-
+    int doctor_id;
 private Connection conn;
 
+    public AddPatientController(int doctor_id){
+        this.doctor_id = doctor_id;
+    }
     public AddPatientController() {
         Properties dbProp = new Properties();
         try{
@@ -88,10 +91,12 @@ private Connection conn;
         PatientsDaoImpl p = new PatientsDaoImpl();
         DoctorsDaoImpl doc = new DoctorsDaoImpl();
 
-        Patients patient = new Patients(generateId(), first_name_box.getText(), last_name_box.getText(),
+        System.out.println(doctor_id);
+
+        Patients patient = new Patients(first_name_box.getText(), last_name_box.getText(),
                 address_box.getText(), email_box.getText(), telephone_box.getText(), Integer.parseInt(age_box.getText()),
                 gender_box.getText(), Integer.parseInt(record_id_box.getText()), password_box.getText(),
-                username_box.getText(), 8736);
+                username_box.getText(), doctor_id);
 
         p.add(patient);
 
