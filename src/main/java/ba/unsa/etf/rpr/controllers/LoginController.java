@@ -46,33 +46,37 @@ public class LoginController implements Initializable {
 
     public void validateLogin() throws IOException {
 
+        //popravi uslove za validaciju
+
         DoctorsDaoImpl doc = new DoctorsDaoImpl();
         PatientsDaoImpl pt = new PatientsDaoImpl();
-        MainFX m = new MainFX();
         String user = username.getText();
 
-        if(doc.searchByUsername(username.getText()) != null
-                && doc.searchByUsername(username.getText()).getPassword().equals(password.getText())){
-            if(choice.getValue().equals("Doctor")){
-                System.out.println("doctor");
+        if(choice.getValue().equals("Doctor")) {
+            if (doc.searchByUsername(username.getText()) != null
+                    && doc.searchByUsername(username.getText()).getPassword().equals(password.getText())) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterdoctorlogin.fxml"));
+                AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(username.getText(),
+                        doc.searchByUsername(username.getText()).getId());
+                fxmlLoader.setController(afterDoctorLoginController);
+                Parent root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+                stage.show();
+                Stage s = (Stage) username.getScene().getWindow();
+                s.close();
             }
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterdoctorlogin.fxml"));
-            AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(username.getText(),
-                    doc.searchByUsername(username.getText()).getId());
-            fxmlLoader.setController(afterDoctorLoginController);
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-            stage.show();
-            Stage s = (Stage)username.getScene().getWindow();
-            s.close();
+            else{
+                username.setStyle("-fx-border-color: red; -fx-border-width: 2px ;");
+                new animatefx.animation.Shake(username).play();
+                password.setStyle("-fx-border-color: red; -fx-border-width: 2px ;");
+                new animatefx.animation.Shake(password).play();
+            }
         }
 
-        else if(pt.searchByUsername(username.getText()) != null
-                && pt.searchByUsername(username.getText()).getPassword().equals(password.getText())){
-            if(choice.getValue().equals("Patient")){
-                System.out.println("patient");
+        if(choice.getValue().equals("Patient")) {
+            if (pt.searchByUsername(username.getText()) != null
+                    && pt.searchByUsername(username.getText()).getPassword().equals(password.getText())) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterpatientlogin.fxml"));
                 AfterPatientLoginController afterPatientLoginController = new AfterPatientLoginController(username.getText());
                 fxmlLoader.setController(afterPatientLoginController);
@@ -80,39 +84,24 @@ public class LoginController implements Initializable {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
                 stage.show();
-                Stage s = (Stage)username.getScene().getWindow();
+                Stage s = (Stage) username.getScene().getWindow();
                 s.close();
+            }
+            else{
+                username.setStyle("-fx-border-color: red; -fx-border-width: 2px ;");
+                new animatefx.animation.Shake(username).play();
+                password.setStyle("-fx-border-color: red; -fx-border-width: 2px ;");
+                new animatefx.animation.Shake(password).play();
             }
         }
 
-        else if(username.getText().isEmpty() && password.getText().isEmpty()){
-            wronglogin.setText("Please enter your data");
-        }
-
-        else{
-            wronglogin.setText("Wrong username or password");
-        }
-
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         choice.getItems().addAll("Doctor", "Patient");
     }
-
-    /*public void switchScenes(String fxml, String controllerName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
-
-        AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(username.getText());
-        fxmlLoader.setController(afterDoctorLoginController);
-        Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-        stage.show();
-        Stage s = (Stage)username.getScene().getWindow();
-        s.close();
-    }*/
-
 
 }
