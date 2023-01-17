@@ -17,6 +17,10 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
     //private Connection conn;
     private static PatientsDaoImpl instance = null;
 
+    public PatientsDaoImpl(String tableName) {
+        super(tableName);
+    }
+
     public PatientsDaoImpl(){
         super("PATIENTS");
         /*Properties dbProp = new Properties();
@@ -157,8 +161,9 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
             System.out.println(sqle.getErrorCode());
         }
         return p;
-    }
+    }*/
 
+/*
     @Override
     public void delete(int id) {
         String query = "DELETE FROM PATIENTS WHERE id = " + id;
@@ -232,8 +237,8 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
     }
 
     public ObservableList<Patients> allPatients(int docId) throws SQLException {
-        //String query = "SELECT * FROM PATIENTS WHERE doctor_id = " + docId;
-        String query = "SELECT * FROM PATIENTS";
+        String query = "SELECT * FROM PATIENTS WHERE doctor_id = " + docId;
+        //String query = "SELECT * FROM PATIENTS";
         PreparedStatement stmt = getConnection().prepareStatement(query);
 
         ObservableList<Patients> result = FXCollections.observableArrayList();
