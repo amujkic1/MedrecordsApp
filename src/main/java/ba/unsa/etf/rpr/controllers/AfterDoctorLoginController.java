@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.dao.AbstractDao;
 import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
 import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
 import ba.unsa.etf.rpr.domain.Patients;
+import ba.unsa.etf.rpr.domain.Records;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,6 +40,16 @@ public class AfterDoctorLoginController implements Initializable {
     private Menu help;
     @FXML
     private Button addbutton;
+    @FXML
+    private MenuItem open;
+    @FXML
+    private MenuItem _new;
+    @FXML
+    private MenuItem close;
+    @FXML
+    private MenuItem about;
+    @FXML
+    private MenuItem delete;
 //    @FXML
     public ListView patientList;
     //public PatientsDaoImpl somePatient;
@@ -47,7 +58,10 @@ public class AfterDoctorLoginController implements Initializable {
     private Scene scene;
     private Parent root;
     String DocUsername;
-    public AfterDoctorLoginController(String DocUsername) { this.DocUsername = DocUsername; }
+    int doctor_id;
+    public AfterDoctorLoginController(String DocUsername, int doctor_id) {
+        this.DocUsername = DocUsername;
+        this.doctor_id = doctor_id; }
 
     public void searchByUser(){
         if(txtfield.getText().equals("")){ System.out.println("UNESITE PODATKE"); return; }
@@ -58,19 +72,31 @@ public class AfterDoctorLoginController implements Initializable {
 
     public void addPatient() throws IOException {
 
+        /*AddPatientController apc = new AddPatientController(doctor_id);
+        System.out.println(apc.doctor_id);*/
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addpatient.fxml"));
+        AddPatientController apc = new AddPatientController(doctor_id);
+        fxmlLoader.setController(apc);
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
         stage.show();
         Stage s = (Stage)txtfield.getScene().getWindow();
         //s.close();
+
+
+        /*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addpatient.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        stage.show();
+        Stage s = (Stage)txtfield.getScene().getWindow();*/
+        //s.close();
     }
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //AbstractDao pdao = new PatientsDaoImpl();
-        //AbstractDao ddao = new DoctorsDaoImpl();
         PatientsDaoImpl pdao = new PatientsDaoImpl();
         DoctorsDaoImpl ddao = new DoctorsDaoImpl();
         try {
@@ -78,6 +104,27 @@ public class AfterDoctorLoginController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
 
+        patientList.setOnMouseClicked(event -> {
+            //String selected = patientList.getSelectionModel().getSelectedItem().toString();
+            Patients selected = (Patients)patientList.getSelectionModel().getSelectedItem();
+            System.out.println(selected);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
+            //Records rec = new Records();
+            //rec = findUserRecord();
+            PatientRecordController pr = new PatientRecordController(selected);
+            fxmlLoader.setController(pr);
+            Parent root = null;
+            try {
+                root = fxmlLoader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.show();
+            Stage s = (Stage)txtfield.getScene().getWindow();
+            s.close();
+        });
+    }
 }
