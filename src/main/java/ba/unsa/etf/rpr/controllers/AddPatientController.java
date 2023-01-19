@@ -3,6 +3,8 @@ package ba.unsa.etf.rpr.controllers;
 //napravi metodu generatId koja daje sljedeci moguci id u tabeli na nacin da vrati preko fje COUNT broj redova i da sljedeci
 // provjera da li postoji zadani id za svaki slucaj
 
+import ba.unsa.etf.rpr.business.DoctorManager;
+import ba.unsa.etf.rpr.business.PatientManager;
 import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
 import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
 import ba.unsa.etf.rpr.domain.Patients;
@@ -88,8 +90,9 @@ private Connection conn;
     }
 
     public void addPatientToBase(){
-        PatientsDaoImpl p = new PatientsDaoImpl();
-        DoctorsDaoImpl doc = new DoctorsDaoImpl();
+        PatientManager p = new PatientManager();
+        //DoctorsDaoImpl doc = new DoctorsDaoImpl();
+        DoctorManager doc = new DoctorManager();
 
         System.out.println(doctor_id);
 
@@ -102,11 +105,11 @@ private Connection conn;
 
     }
 
-    public int generateId(){
+    /*public int generateId(){
         PatientsDaoImpl ptdao = new PatientsDaoImpl();
         int num = ptdao.numberOfRows();
         return num+1;
-    }
+    }*/
 
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancelbttn.getScene().getWindow();
