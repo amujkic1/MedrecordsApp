@@ -4,6 +4,7 @@ import ba.unsa.etf.rpr.MainFX;
 import ba.unsa.etf.rpr.dao.AbstractDao;
 import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
 import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
+import ba.unsa.etf.rpr.dao.RecordsDaoImpl;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
 import javafx.fxml.FXML;
@@ -108,11 +109,14 @@ public class AfterDoctorLoginController implements Initializable {
         patientList.setOnMouseClicked(event -> {
             //String selected = patientList.getSelectionModel().getSelectedItem().toString();
             Patients selected = (Patients)patientList.getSelectionModel().getSelectedItem();
+            Records rec = new Records();
+            RecordsDaoImpl rdi = new RecordsDaoImpl();
+            rec = rdi.findByID(selected.getRecord_id());
             System.out.println(selected);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
             //Records rec = new Records();
             //rec = findUserRecord();
-            PatientRecordController pr = new PatientRecordController(selected);
+            PatientRecordController pr = new PatientRecordController(selected, rec);
             fxmlLoader.setController(pr);
             Parent root = null;
             try {
