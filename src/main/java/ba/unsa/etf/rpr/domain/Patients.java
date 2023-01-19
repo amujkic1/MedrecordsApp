@@ -19,6 +19,21 @@ public class Patients implements Idable {
 
     public Patients() {}
 
+    public Patients(String first_name, String last_name, String address, String email,
+                    String telephone, int age, String gender, int record_id, String password, String username, int doctor_id) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.address = address;
+        this.email = email;
+        this.telephone = telephone;
+        this.age = age;
+        this.gender = gender;
+        this.record_id = record_id;
+        this.password = password;
+        this.username = username;
+        this.doctor_id = doctor_id;
+    }
+
     public Patients(int patient_id, String first_name, String last_name, String address, String email,
                     String telephone, int age, String gender, int record_id, String password, String username, int doctor_id) {
         this.patient_id = patient_id;
