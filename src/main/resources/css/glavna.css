@@ -1,0 +1,27 @@
+.root{
+    -fx-background-color: #d3f2e6
+}
+#open > .label{
+    -fx-graphic: url("/img/openicon.png");
+}
+#open .accelerator-text{
+    -fx-graphic: none;
+}
+#about > .label{
+    -fx-graphic: url("/img/abouticon.png");
+}
+#about .accelerator-text{
+    -fx-graphic: none;
+}
+#_new > .label{
+    -fx-graphic: url("/img/newicon.png");
+}
+#_new .accelerator-text{
+    -fx-graphic: none;
+}
+#delete > .label{
+    -fx-graphic: url("/img/deleteicon.png");
+}
+#delete .accelerator-text{
+    -fx-graphic: none;
+}
