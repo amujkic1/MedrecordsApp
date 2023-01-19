@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.controllers;
 import ba.unsa.etf.rpr.MainFX;
 import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
 import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
+import ba.unsa.etf.rpr.dao.RecordsDaoImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
