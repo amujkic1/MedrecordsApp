@@ -88,7 +88,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         }
     }
 
-    public void update(T item, int id) throws SQLException {
+    public void update(T item) throws SQLException {
         Map<String, Object> row = objectToRow(item);
         String updateColumns = prepareUpdateParts(row);
         StringBuilder builder = new StringBuilder();
@@ -113,8 +113,8 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         try {
             PreparedStatement stmt = getConnection().prepareStatement(query);
             if (params != null) {
-                for (int i = 0; i <= params.length; i++) {
-                    stmt.setObject(i, params[i - 1]);
+                for (int i = 1; i <= params.length; i++) {
+                    stmt.setObject(i, params[i-1]);
                 }
             }
             ResultSet rs = stmt.executeQuery();
