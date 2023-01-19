@@ -36,8 +36,8 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
             while(res.next()){
                 rec = new Records(res.getInt("id"), res.getInt("patient_id"),
                         res.getInt("doctor_id"), res.getString("diagnosis"),
-                        res.getString("allergies"), res.getString("treatments"),
-                        res.getDouble("height"), res.getDouble("weight"));
+                        res.getString("allergies"), res.getString("prescriptions"),
+                        res.getDouble("height"), res.getDouble("weight"), res.getString("blood"));
             }
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
@@ -56,9 +56,10 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
             rec.setDoctor_id(rs.getInt("doctor_id"));
             rec.setDiagnosis(rs.getString("diagnosis"));
             rec.setAllergies(rs.getString("allergies"));
-            rec.setTreatments(rs.getString("treatments"));
+            rec.setPrescriptions(rs.getString("treatments"));
             rec.setHeight(rs.getDouble("height"));
             rec.setWeight(rs.getDouble("weight"));
+            rec.setBlood(rs.getString("blood"));
             return rec;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -74,11 +75,28 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
         row.put("doctor_id", object.getDoctor_id());
         row.put("diagnosis", object.getDiagnosis());
         row.put("allergies", object.getAllergies());
-        row.put("treatments", object.getTreatments());
+        row.put("treatments", object.getPrescriptions());
         row.put("height", object.getHeight());
         row.put("weight", object.getWeight());
+        row.put("blood", object.getBlood());
         return row;
     }
 
+    public Records findByID(int id){
+        Records rec = null;
+        try{
+            Statement stmt = getConnection().createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM RECORDS WHERE id = " + id);
+            while(res.next()){
+                rec = new Records(res.getInt("id"), res.getInt("patient_id"), res.getInt("doctor_id"),
+                        res.getString("diagnosis"), res.getString("allergies"),
+                        res.getString("prescriptions"), res.getDouble("height"),
+                        res.getDouble("weight"), res.getString("blood"));
+            }
+        } catch (SQLException sqle){
+            sqle.getErrorCode();
+        }
+        return rec;
+    }
 
 }
