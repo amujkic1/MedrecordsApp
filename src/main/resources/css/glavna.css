@@ -25,3 +25,10 @@
 #delete .accelerator-text{
     -fx-graphic: none;
 }
+#tbBack{
+    -fx-graphic: url("/img/back_button.png");
+}
+
+#logout{
+    -fx-background-color: #3b7a47;
+}
