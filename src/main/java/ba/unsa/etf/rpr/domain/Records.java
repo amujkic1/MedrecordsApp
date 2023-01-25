@@ -1,7 +1,5 @@
 package ba.unsa.etf.rpr.domain;
 
-import java.sql.Date;
-
 public class Records implements Idable {
     private int id;
     private int patient_id;
@@ -13,13 +11,6 @@ public class Records implements Idable {
     private Double weight;
     private String blood;
 
-    public String getBlood() {
-        return blood;
-    }
-
-    public void setBlood(String blood) {
-        this.blood = blood;
-    }
 
     public Records(){}
     public Records(int id, int patient_id, int doctor_id, String diagnosis, String allergies, String prescriptions,
@@ -91,6 +82,13 @@ public class Records implements Idable {
         this.weight = weight;
     }
 
+    public String getBlood() {
+        return blood;
+    }
+
+    public void setBlood(String blood) {
+        this.blood = blood;
+    }
     @Override
     public void setId(int id) {
         this.id = id;
