@@ -1,18 +1,21 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Doctors;
-import ba.unsa.etf.rpr.domain.Idable;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
-import java.util.Properties;
 import java.util.TreeMap;
 
 public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
+
+
+    private static DoctorsDaoImpl instance = null;
+    private DoctorsDaoImpl(){
+        super("DOCTORS");
+    }
+
     @Override
     public Doctors rowToObject(ResultSet rs) {
         try {
@@ -51,20 +54,7 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
         return row;
     }
 
-    //private Connection conn;
-    private static DoctorsDaoImpl instance = null;
-    public DoctorsDaoImpl(){
-        super("DOCTORS");
-        /*Properties dbProp = new Properties();
-        try{
-            dbProp.load(DoctorsDaoImpl.class.getResource("/database.properties").openStream());
-            conn = DriverManager.getConnection(dbProp.getProperty("url"), dbProp.getProperty("username"), dbProp.getProperty("password"));
-        }catch(IOException ioe){
-            ioe.printStackTrace();
-        }catch(SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }*/
-    }
+
 
     public static DoctorsDaoImpl getInstance(){
         if(instance==null)
@@ -178,4 +168,5 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
         }
         return d;
     }
+
 }
