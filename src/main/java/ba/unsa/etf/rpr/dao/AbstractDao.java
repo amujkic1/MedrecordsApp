@@ -41,7 +41,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
 
     public T getById(int id){
         try {
-            return executeQueryUnique("SELECT * FROM " + this.tableName + "WHERE id = ?", new Object[]{id});
+            return executeQueryUnique("SELECT * FROM " + tableName + " WHERE id = ?", new Object[]{id});
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -56,7 +56,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
     }
 
     public void delete(int id){
-        String sql = "DELETE FROM " + tableName + "WHERE id = ?";
+        String sql = "DELETE FROM " + tableName + " WHERE id = ?";
         try{
             PreparedStatement stmt = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         Map<String, Object> row = objectToRow(item);
         String updateColumns = prepareUpdateParts(row);
         StringBuilder builder = new StringBuilder();
-        builder.append("UPDATE ").append(tableName).append(" SET ").append(updateColumns).append("WHERE id = ?");
+        builder.append("UPDATE ").append(tableName).append(" SET ").append(updateColumns).append(" WHERE id = ?");
 
         try{
             PreparedStatement stmt = getConnection().prepareStatement(builder.toString());
