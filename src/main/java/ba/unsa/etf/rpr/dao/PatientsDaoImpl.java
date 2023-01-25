@@ -1,15 +1,14 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
-import java.util.Properties;
-import java.sql.*;
 import java.util.TreeMap;
 
 public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDao {
@@ -17,21 +16,8 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
     //private Connection conn;
     private static PatientsDaoImpl instance = null;
 
-    public PatientsDaoImpl(String tableName) {
-        super(tableName);
-    }
-
-    public PatientsDaoImpl(){
+    private PatientsDaoImpl(){
         super("PATIENTS");
-        /*Properties dbProp = new Properties();
-        try{
-            dbProp.load(PatientsDaoImpl.class.getResource("/database.properties").openStream());
-            conn = DriverManager.getConnection(dbProp.getProperty("url"), dbProp.getProperty("username"), dbProp.getProperty("password"));
-        }catch (IOException e){
-            e.printStackTrace();
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }*/
     }
 
     public static PatientsDaoImpl getInstance(){
