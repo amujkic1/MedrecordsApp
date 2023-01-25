@@ -1,10 +1,8 @@
 package ba.unsa.etf.rpr.controllers;
 
-import ba.unsa.etf.rpr.MainFX;
-import ba.unsa.etf.rpr.dao.AbstractDao;
-import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
-import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
-import ba.unsa.etf.rpr.dao.RecordsDaoImpl;
+import ba.unsa.etf.rpr.business.DoctorManager;
+import ba.unsa.etf.rpr.business.PatientManager;
+import ba.unsa.etf.rpr.business.RecordManager;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
 import javafx.fxml.FXML;
@@ -21,7 +19,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static javafx.fxml.FXMLLoader.load;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class AfterDoctorLoginController implements Initializable {
@@ -51,10 +48,10 @@ public class AfterDoctorLoginController implements Initializable {
     private MenuItem about;
     @FXML
     private MenuItem delete;
-//    @FXML
-    public ListView patientList;
-    //public PatientsDaoImpl somePatient;
+    @FXML
+    private Button logout;
 
+    public ListView patientList;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -66,15 +63,22 @@ public class AfterDoctorLoginController implements Initializable {
 
     public void searchByUser(){
         if(txtfield.getText().equals("")){ System.out.println("UNESITE PODATKE"); return; }
-        PatientsDaoImpl pdao = new PatientsDaoImpl();
+        PatientManager pdao = new PatientManager();
         Patients patient = pdao.findByUsername(txtfield.getText());
         System.out.println(patient.getUsername());
     }
 
-    public void addPatient() throws IOException {
+    public void logOut() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        stage.show();
+        Stage s = (Stage) logout.getScene().getWindow();
+        s.close();
+    }
 
-        /*AddPatientController apc = new AddPatientController(doctor_id);
-        System.out.println(apc.doctor_id);*/
+    public void addPatient() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addpatient.fxml"));
         AddPatientController apc = new AddPatientController(doctor_id);
@@ -85,21 +89,12 @@ public class AfterDoctorLoginController implements Initializable {
         stage.show();
         Stage s = (Stage)txtfield.getScene().getWindow();
         //s.close();
-
-
-        /*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addpatient.fxml"));
-        Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-        stage.show();
-        Stage s = (Stage)txtfield.getScene().getWindow();*/
-        //s.close();
     }
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        PatientsDaoImpl pdao = new PatientsDaoImpl();
-        DoctorsDaoImpl ddao = new DoctorsDaoImpl();
+        PatientManager pdao = new PatientManager();
+        DoctorManager ddao = new DoctorManager();
         try {
             patientList.setItems(pdao.allPatients(ddao.searchByUsername(DocUsername).getId()));
         } catch (SQLException e) {
@@ -107,16 +102,14 @@ public class AfterDoctorLoginController implements Initializable {
         }
 
         patientList.setOnMouseClicked(event -> {
-            //String selected = patientList.getSelectionModel().getSelectedItem().toString();
             Patients selected = (Patients)patientList.getSelectionModel().getSelectedItem();
             Records rec = new Records();
-            RecordsDaoImpl rdi = new RecordsDaoImpl();
-            rec = rdi.findByID(selected.getRecord_id());
+            RecordManager rdi = new RecordManager();
+            rec = rdi.getById(selected.getRecord_id());
             System.out.println(selected);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
-            //Records rec = new Records();
-            //rec = findUserRecord();
-            PatientRecordController pr = new PatientRecordController(selected, rec);
+            DoctorManager doctor = new DoctorManager();
+            PatientRecordController pr = new PatientRecordController(selected, rec, doctor.searchByUsername(DocUsername));
             fxmlLoader.setController(pr);
             Parent root = null;
             try {
