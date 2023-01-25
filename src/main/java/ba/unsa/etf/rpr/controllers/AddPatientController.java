@@ -1,11 +1,6 @@
 package ba.unsa.etf.rpr.controllers;
-
-//napravi metodu generatId koja daje sljedeci moguci id u tabeli na nacin da vrati preko fje COUNT broj redova i da sljedeci
-// provjera da li postoji zadani id za svaki slucaj
-
 import ba.unsa.etf.rpr.business.DoctorManager;
 import ba.unsa.etf.rpr.business.PatientManager;
-import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
 import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
 import ba.unsa.etf.rpr.domain.Patients;
 import javafx.event.ActionEvent;
@@ -19,7 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -105,11 +102,6 @@ private Connection conn;
 
     }
 
-    /*public int generateId(){
-        PatientsDaoImpl ptdao = new PatientsDaoImpl();
-        int num = ptdao.numberOfRows();
-        return num+1;
-    }*/
 
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancelbttn.getScene().getWindow();
