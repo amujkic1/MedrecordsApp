@@ -1,11 +1,11 @@
 package ba.unsa.etf.rpr.controllers;
 
-import ba.unsa.etf.rpr.MainFX;
 import ba.unsa.etf.rpr.business.DoctorManager;
 import ba.unsa.etf.rpr.business.PatientManager;
-import ba.unsa.etf.rpr.dao.DoctorsDaoImpl;
-import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
-import ba.unsa.etf.rpr.dao.RecordsDaoImpl;
+import ba.unsa.etf.rpr.business.RecordManager;
+import ba.unsa.etf.rpr.domain.Doctors;
+import ba.unsa.etf.rpr.domain.Patients;
+import ba.unsa.etf.rpr.domain.Records;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,13 +16,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class LoginController implements Initializable {
@@ -31,6 +31,12 @@ public class LoginController implements Initializable {
     private Button button;
     @FXML
     private Label wronglogin;
+    @FXML
+    private Label user;
+    @FXML
+    private Label pw;
+    @FXML
+    private Label role;
     @FXML
     private TextField username;
     @FXML
@@ -42,14 +48,13 @@ public class LoginController implements Initializable {
     private Scene scene;
     private Parent root;
 
+    public LoginController(){}
     public void login(ActionEvent event) throws IOException {
         System.out.println("login");
         validateLogin();
     }
 
     public void validateLogin() throws IOException {
-
-        //popravi uslove za validaciju
 
         DoctorManager doc = new DoctorManager();
         PatientManager pt = new PatientManager();
@@ -74,9 +79,11 @@ public class LoginController implements Initializable {
                 fxmlLoader.setController(afterDoctorLoginController);
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
+                stage.setResizable(false);
                 stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
                 stage.show();
-                Stage s = (Stage) username.getScene().getWindow();
+                Stage s = new Stage();
+                s = (Stage) username.getScene().getWindow();
                 s.close();
             }
         }
@@ -95,9 +102,17 @@ public class LoginController implements Initializable {
             }
 
             if(code.equals("ok")) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterpatientlogin.fxml"));
-                AfterPatientLoginController afterPatientLoginController = new AfterPatientLoginController(username.getText());
-                fxmlLoader.setController(afterPatientLoginController);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
+                PatientManager pat = new PatientManager();
+                DoctorManager dom = new DoctorManager();
+                RecordManager rm = new RecordManager();
+                Patients patient = pat.findByUsername(username.getText());
+                Doctors doctor = dom.getById(patient.getDoctor_id());
+                Records rec = rm.getById(patient.getRecord_id());
+
+                PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor);
+                fxmlLoader.setController(patientRecordController);
+
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
@@ -114,6 +129,9 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         choice.getItems().addAll("Doctor", "Patient");
+        user.setFont(new Font("Bahnschrift SemiBold", 14));
+        pw.setFont(new Font("Bahnschrift SemiBold", 14));
+        role.setFont(new Font("Bahnschrift SemiBold", 16));
     }
 
 }
