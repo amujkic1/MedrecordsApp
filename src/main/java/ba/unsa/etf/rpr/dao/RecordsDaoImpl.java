@@ -1,19 +1,17 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Records;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
-import java.util.Properties;
 import java.util.TreeMap;
 
 public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
 
     private static RecordsDaoImpl instance = null;
-    public RecordsDaoImpl(){
+    private RecordsDaoImpl(){
         super("RECORDS");
     }
 
@@ -46,7 +44,6 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
     }
 
 
-
     @Override
     public Records rowToObject(ResultSet rs) {
         try {
@@ -56,7 +53,7 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
             rec.setDoctor_id(rs.getInt("doctor_id"));
             rec.setDiagnosis(rs.getString("diagnosis"));
             rec.setAllergies(rs.getString("allergies"));
-            rec.setPrescriptions(rs.getString("treatments"));
+            rec.setPrescriptions(rs.getString("prescriptions"));
             rec.setHeight(rs.getDouble("height"));
             rec.setWeight(rs.getDouble("weight"));
             rec.setBlood(rs.getString("blood"));
@@ -80,23 +77,6 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
         row.put("weight", object.getWeight());
         row.put("blood", object.getBlood());
         return row;
-    }
-
-    public Records findByID(int id){
-        Records rec = null;
-        try{
-            Statement stmt = getConnection().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM RECORDS WHERE id = " + id);
-            while(res.next()){
-                rec = new Records(res.getInt("id"), res.getInt("patient_id"), res.getInt("doctor_id"),
-                        res.getString("diagnosis"), res.getString("allergies"),
-                        res.getString("prescriptions"), res.getDouble("height"),
-                        res.getDouble("weight"), res.getString("blood"));
-            }
-        } catch (SQLException sqle){
-            sqle.getErrorCode();
-        }
-        return rec;
     }
 
 }
