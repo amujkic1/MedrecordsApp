@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
-
-
     private static DoctorsDaoImpl instance = null;
     private DoctorsDaoImpl(){
         super("DOCTORS");
@@ -19,7 +17,21 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
     @Override
     public Doctors rowToObject(ResultSet rs) {
         try {
-            Doctors doc = new Doctors();
+            Doctors doc = new Doctors.DoctorBuilder(
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("password")).
+                    First_name(rs.getString("first_name")).
+                    Last_name(rs.getString("last_name")).
+                    Address(rs.getString("address")).
+                    Email(rs.getString("email")).
+                    Telephone(rs.getString("telephone")).
+                    Age(rs.getInt("age")).
+                    Gender(rs.getString("gender")).
+                    Specialization(rs.getString("specialization")).build();
+            return doc;
+
+            /*Doctors doc = new Doctors();
             doc.setId(rs.getInt("id"));
             doc.setFirst_name(rs.getString("first_name"));
             doc.setLast_name(rs.getString("last_name"));
@@ -31,7 +43,7 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
             doc.setSpecialization(rs.getString("specialization"));
             doc.setPassword(rs.getString("password"));
             doc.setUsername(rs.getString("username"));
-            return doc;
+            return doc;*/
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -53,8 +65,6 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
         row.put("username", object.getUsername());
         return row;
     }
-
-
 
     public static DoctorsDaoImpl getInstance(){
         if(instance==null)
@@ -156,12 +166,25 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM DOCTORS WHERE username = '" + username + "'");
             while(res.next()){
-                d = new Doctors(res.getInt("id"), res.getString("first_name"),
+                d = new Doctors.DoctorBuilder(
+                        res.getInt("id"),
+                        res.getString("username"),
+                        res.getString("password")).
+                        First_name(res.getString("first_name")).
+                        Last_name(res.getString("last_name")).
+                        Address(res.getString("address")).
+                        Email(res.getString("email")).
+                        Telephone(res.getString("telephone")).
+                        Age(res.getInt("age")).
+                        Gender(res.getString("gender")).
+                        Specialization(res.getString("specialization")).build();
+
+                /*d = new Doctors(res.getInt("id"), res.getString("first_name"),
                         res.getString("last_name"), res.getString("address"),
                         res.getString("email"), res.getString("telephone"),
                         res.getInt("age"), res.getString("gender"),
                         res.getString("specialization"),
-                        res.getString("password"), res.getString("username"));
+                        res.getString("password"), res.getString("username"));*/
             }
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
