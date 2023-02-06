@@ -30,7 +30,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button button;
     @FXML
-    private Label wronglogin;
+    private Button registerbttn;
     @FXML
     private Label user;
     @FXML
@@ -43,6 +43,8 @@ public class LoginController implements Initializable {
     private TextField password;
     @FXML
     private ChoiceBox<String> choice;
+    @FXML
+    private Label error;
 
     private Stage stage;
     private Scene scene;
@@ -58,6 +60,8 @@ public class LoginController implements Initializable {
 
         DoctorManager doc = new DoctorManager();
         PatientManager pt = new PatientManager();
+
+        if(choice.getValue()==null){ error.setText("This field is mandatory"); return; };
 
         if(choice.getValue().equals("Doctor")) {
 
@@ -110,7 +114,7 @@ public class LoginController implements Initializable {
                 Doctors doctor = dom.getById(patient.getDoctor_id());
                 Records rec = rm.getById(patient.getRecord_id());
 
-                PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor);
+                PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor, "p");
                 fxmlLoader.setController(patientRecordController);
 
                 Parent root = fxmlLoader.load();
@@ -121,9 +125,27 @@ public class LoginController implements Initializable {
                 s.close();
             }
         }
-
     }
 
+    public void register(){
+        if(choice.getValue()==null){ error.setText("This field is mandatory"); return; };
+
+        if(choice.getValue().equals("Doctor")) {
+            DoctorManager dm = new DoctorManager();
+            if(username.getText().equals("") || password.getText().equals("")){
+                error.setText("Enter username and password");
+                return;
+            }
+            else if(dm.searchByUsername(username.getText())==null) {
+                Doctors doc = new Doctors.DoctorBuilder(dm.searchByUsername(username.getText()).getId(),
+                        username.getText(), password.getText()).build();
+                dm.add(doc);
+            }else{
+                error.setText("Username already exists");
+                return;
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
