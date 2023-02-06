@@ -35,10 +35,41 @@ public class PatientRecordController implements Initializable {
     private RecordsDaoImpl tmp;
     private int record_id;
     private Doctors doctor;
-    public PatientRecordController(Patients patient, Records rec, Doctors doc) {
+    private String who;
+
+    public PatientRecordController(Patients patient, Records rec, Doctors doc, String who) {
         this.patient = patient;
         this.rec = rec;
-        this.doctor = doc; }
+        this.doctor = doc;
+        this.who = who;
+    }
+
+
+    public void back() throws IOException {
+        if(who.equals("d")) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterdoctorlogin.fxml"));
+            AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(doctor.getUsername(),
+                    doctor.getId());
+            fxmlLoader.setController(afterDoctorLoginController);
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.show();
+            Stage s = (Stage) name.getScene().getWindow();
+            s.close();
+        }else{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
+            LoginController loginController = new LoginController();
+            //fxmlLoader.setController(loginController);
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.show();
+            Stage s = (Stage) name.getScene().getWindow();
+            s.close();
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,16 +80,4 @@ public class PatientRecordController implements Initializable {
 
     }
 
-    public void back() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterdoctorlogin.fxml"));
-        AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(doctor.getUsername(),
-                doctor.getId());
-        fxmlLoader.setController(afterDoctorLoginController);
-        Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-        stage.show();
-        Stage s = (Stage) name.getScene().getWindow();
-        s.close();
-    }
 }
