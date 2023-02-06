@@ -1,4 +1,5 @@
 package ba.unsa.etf.rpr.controllers;
+
 import ba.unsa.etf.rpr.business.DoctorManager;
 import ba.unsa.etf.rpr.business.PatientManager;
 import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
@@ -7,11 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -21,49 +19,26 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class AddPatientController implements Initializable {
-
-    @FXML
-    private BorderPane bp;
-    @FXML
-    private Label first_name;
     @FXML
     private TextField first_name_box;
-    @FXML
-    private Label last_name;
     @FXML
     private TextField last_name_box;
     @FXML
     private TextField address_box;
     @FXML
-    private Label address;
-    @FXML
     private TextField email_box;
-    @FXML
-    private Label email;
     @FXML
     private TextField telephone_box;
     @FXML
-    private Label telephone;
-    @FXML
     private TextField age_box;
-    @FXML
-    private Label age;
     @FXML
     private TextField gender_box;
     @FXML
-    private Label gender;
-    @FXML
     private TextField record_id_box;
-    @FXML
-    private Label record_id;
     @FXML
     private TextField username_box;
     @FXML
-    private Label username;
-    @FXML
     private TextField password_box;
-    @FXML
-    private Label password;
     @FXML
     private Button addbttn;
     @FXML
@@ -88,10 +63,7 @@ private Connection conn;
 
     public void addPatientToBase(){
         PatientManager p = new PatientManager();
-        //DoctorsDaoImpl doc = new DoctorsDaoImpl();
         DoctorManager doc = new DoctorManager();
-
-        System.out.println(doctor_id);
 
         Patients patient = new Patients(first_name_box.getText(), last_name_box.getText(),
                 address_box.getText(), email_box.getText(), telephone_box.getText(), Integer.parseInt(age_box.getText()),
@@ -101,7 +73,6 @@ private Connection conn;
         p.add(patient);
 
     }
-
 
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancelbttn.getScene().getWindow();
