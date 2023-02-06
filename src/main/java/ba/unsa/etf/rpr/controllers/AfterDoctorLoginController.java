@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.controllers;
 import ba.unsa.etf.rpr.business.DoctorManager;
 import ba.unsa.etf.rpr.business.PatientManager;
 import ba.unsa.etf.rpr.business.RecordManager;
+import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
 import javafx.fxml.FXML;
@@ -50,6 +51,8 @@ public class AfterDoctorLoginController implements Initializable {
     private MenuItem delete;
     @FXML
     private Button logout;
+    @FXML
+    private Label warning;
 
     public ListView patientList;
     private Stage stage;
@@ -62,10 +65,30 @@ public class AfterDoctorLoginController implements Initializable {
         this.doctor_id = doctor_id; }
 
     public void searchByUser(){
-        if(txtfield.getText().equals("")){ System.out.println("UNESITE PODATKE"); return; }
-        PatientManager pdao = new PatientManager();
-        Patients patient = pdao.findByUsername(txtfield.getText());
-        System.out.println(patient.getUsername());
+        if(txtfield.getText().equals("")){ warning.setText("You have to input data for search"); return; }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
+        PatientManager pat = new PatientManager();
+        DoctorManager dom = new DoctorManager();
+        RecordManager rm = new RecordManager();
+        Patients patient = pat.findByUsername(txtfield.getText());
+        Doctors doctor = dom.getById(patient.getDoctor_id());
+        Records rec = rm.getById(patient.getRecord_id());
+
+        PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor, "d");
+        fxmlLoader.setController(patientRecordController);
+
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        stage.show();
+        Stage s = (Stage) txtfield.getScene().getWindow();
+        s.close();
     }
 
     public void logOut() throws IOException {
@@ -109,7 +132,7 @@ public class AfterDoctorLoginController implements Initializable {
             System.out.println(selected);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
             DoctorManager doctor = new DoctorManager();
-            PatientRecordController pr = new PatientRecordController(selected, rec, doctor.searchByUsername(DocUsername));
+            PatientRecordController pr = new PatientRecordController(selected, rec, doctor.searchByUsername(DocUsername), "d");
             fxmlLoader.setController(pr);
             Parent root = null;
             try {
