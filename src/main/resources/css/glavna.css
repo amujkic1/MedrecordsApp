@@ -27,8 +27,21 @@
 }
 #tbBack{
     -fx-graphic: url("/img/back_button.png");
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
 }
-
+#tbBack: pressed{
+    -fx-background-color: yellow;
+}
+#tbBack: hover{
+    -fx-background-color: gray;
+}
 #logout{
     -fx-background-color: #3b7a47;
+}
+#search{
+    -fx-background-color: #f9d832;
+}
+#addbutton{
+    -fx-background-color: #f9d832;
 }
