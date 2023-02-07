@@ -1,8 +1,5 @@
 package ba.unsa.etf.rpr.domain;
 
-import java.sql.Date;
-
-//builder pattern
 public class Patients implements Idable {
     private int patient_id;
     private String first_name;
