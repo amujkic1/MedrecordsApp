@@ -6,6 +6,7 @@ import ba.unsa.etf.rpr.business.RecordManager;
 import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
+import ba.unsa.etf.rpr.exceptions.MyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,12 +52,12 @@ public class LoginController implements Initializable {
     private Parent root;
 
     public LoginController(){}
-    public void login(ActionEvent event) throws IOException {
+    public void login(ActionEvent event) throws IOException, MyException {
         System.out.println("login");
         validateLogin();
     }
 
-    public void validateLogin() throws IOException {
+    public void validateLogin() throws IOException, MyException {
 
         DoctorManager doc = new DoctorManager();
         PatientManager pt = new PatientManager();
@@ -127,7 +128,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    public void register(){
+    public void register() throws MyException, IOException {
         if(choice.getValue()==null){ error.setText("This field is mandatory"); return; };
 
         if(choice.getValue().equals("Doctor")) {
@@ -144,6 +145,16 @@ public class LoginController implements Initializable {
                 error.setText("Username already exists");
                 return;
             }
+        }
+        else if(choice.getValue().equals("Patient")){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addpatient.fxml"));
+            AddPatientController apc = new AddPatientController(0);
+            fxmlLoader.setController(apc);
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.show();
+            Stage s = (Stage)username.getScene().getWindow();
         }
     }
 
