@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.business;
 
 import ba.unsa.etf.rpr.dao.DaoFactory;
 import ba.unsa.etf.rpr.domain.Patients;
+import ba.unsa.etf.rpr.exceptions.MyException;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
@@ -16,23 +17,23 @@ public class PatientManager {
         if(!findByUsername(username).getPassword().equals(password)) return "wrong password";
         else return "ok";
     }
-    public List<Patients> getAll(){
+    public List<Patients> getAll() throws MyException {
         return DaoFactory.patientsDao().getAll();
     }
 
-    public void add(Patients pt){
+    public void add(Patients pt) throws MyException {
         DaoFactory.patientsDao().add(pt);
     }
 
-    public void update(Patients pt) throws SQLException {
+    public void update(Patients pt) throws SQLException, MyException {
         DaoFactory.patientsDao().update(pt);
     }
 
-    public Patients getById(int id){
+    public Patients getById(int id) throws MyException {
         return DaoFactory.patientsDao().getById(id);
     }
 
-    public void delete(int id){
+    public void delete(int id) throws MyException {
         DaoFactory.patientsDao().delete(id);
     }
 
