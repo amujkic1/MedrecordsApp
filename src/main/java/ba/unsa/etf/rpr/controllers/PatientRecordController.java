@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.controllers;
 
+import ba.unsa.etf.rpr.business.RecordManager;
 import ba.unsa.etf.rpr.dao.RecordsDaoImpl;
 import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
@@ -10,11 +11,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -30,6 +34,16 @@ public class PatientRecordController implements Initializable {
     private Label weight;
     @FXML
     private Button tbBack;
+    @FXML
+    private ListView<String> list;
+    @FXML
+    private ChoiceBox<String> choiceBox;
+    @FXML
+    private Button update;
+    @FXML
+    private Button addp;
+    @FXML
+    private Label error;
     private Patients patient;
     private Records rec;
     private RecordsDaoImpl tmp;
@@ -59,8 +73,6 @@ public class PatientRecordController implements Initializable {
             s.close();
         }else{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
-            LoginController loginController = new LoginController();
-            //fxmlLoader.setController(loginController);
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
@@ -70,13 +82,61 @@ public class PatientRecordController implements Initializable {
         }
     }
 
+    public void fill(){
+        if (choiceBox.getValue().equals("Allergies")) {
+            RecordManager rm = new RecordManager();
+            try {
+                list.setItems(rm.allergies(patient.getId()));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else if (choiceBox.getValue().equals("Prescriptions")) {
+            RecordManager rm = new RecordManager();
+            try {
+                list.setItems(rm.prescriptions(patient.getId()));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void addDiagnosis() throws IOException {
+        if(who.equals("p")){ error.setText("This is not allowed for patients"); return; }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/newdiagnosis.fxml"));
+        RecordUpdateController recordUpdateController = new RecordUpdateController(rec.getId(), "diagnosis", who);
+        fxmlLoader.setController(recordUpdateController);
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        stage.show();
+        Stage s = (Stage) name.getScene().getWindow();
+    }
+
+    public void addPrescription() throws IOException {
+        if(who.equals("p")){ error.setText("This is not allowed for patients"); return; }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/newdiagnosis.fxml"));
+        RecordUpdateController recordUpdateController = new RecordUpdateController(rec.getId(), "prescription", who);
+        fxmlLoader.setController(recordUpdateController);
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        stage.show();
+        Stage s = (Stage) name.getScene().getWindow();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         name.setText(patient.toString());
         blood.setText(rec.getBlood());
-        height.setText(rec.getHeight()+"cm");
-        weight.setText(rec.getWeight()+"kq");
+        height.setText(rec.getHeight() + "cm");
+        weight.setText(rec.getWeight() + "kq");
+
+        choiceBox.getItems().addAll("Allergies", "Prescriptions");
+
+        choiceBox.setOnAction(e -> {
+            fill();
+        });
 
     }
 
