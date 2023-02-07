@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Idable;
+import ba.unsa.etf.rpr.exceptions.MyException;
 
 import java.io.IOException;
 import java.sql.*;
@@ -35,37 +36,30 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         this.connection = connection;
     }
 
-    public abstract T rowToObject(ResultSet rs);
+    public abstract T rowToObject(ResultSet rs) throws MyException;
 
     public abstract Map<String, Object> objectToRow(T object);
 
-    public T getById(int id){
-        try {
-            return executeQueryUnique("SELECT * FROM " + tableName + " WHERE id = ?", new Object[]{id});
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public T getById(int id) throws MyException{
+        return executeQueryUnique("SELECT * FROM " + tableName + " WHERE id = ?", new Object[]{id});
     }
 
-    public List<T> getAll(){
-        try {
-            return executeQuery("SELECT * FROM " + tableName, null);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public List<T> getAll() throws MyException{
+        return executeQuery("SELECT * FROM " + tableName, null);
     }
 
-    public void delete(int id){
+    public void delete(int id) throws MyException{
         String sql = "DELETE FROM " + tableName + " WHERE id = ?";
         try{
             PreparedStatement stmt = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new MyException(e.getMessage(), e);
+            //throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void add(T item) {
+    public void add(T item) throws MyException{
         Map<String, Object> row = objectToRow(item);
         Map.Entry<String, String> columns = prepareInsertParts(row);
 
@@ -84,11 +78,11 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
             }
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new MyException(e.getMessage(), e);
         }
     }
 
-    public void update(T item) throws SQLException {
+    public void update(T item) throws MyException {
         Map<String, Object> row = objectToRow(item);
         String updateColumns = prepareUpdateParts(row);
         StringBuilder builder = new StringBuilder();
@@ -105,11 +99,11 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
             stmt.setObject(counter, item.getId());
             stmt.executeUpdate();
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new MyException(e.getMessage(), e);
         }
     }
 
-    public List<T> executeQuery(String query, Object[] params) throws SQLException {
+    public List<T> executeQuery(String query, Object[] params) throws MyException {
         try {
             PreparedStatement stmt = getConnection().prepareStatement(query);
             if (params != null) {
@@ -124,16 +118,16 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
             }
             return resultList;
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new MyException(e.getMessage(),e);
         }
     }
 
-    public T executeQueryUnique(String query, Object[] params) throws SQLException {
+    public T executeQueryUnique(String query, Object[] params) throws MyException {
         List<T> result = executeQuery(query, params);
         if(result != null && result.size() == 1){
             return result.get(0);
         }else{
-            throw new RuntimeException();
+            throw new MyException("Object not found");
         }
     }
 
