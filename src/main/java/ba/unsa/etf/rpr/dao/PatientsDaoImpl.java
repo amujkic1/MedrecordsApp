@@ -224,7 +224,6 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
 
     public ObservableList<Patients> allPatients(int docId) throws SQLException {
         String query = "SELECT * FROM PATIENTS WHERE doctor_id = " + docId;
-        //String query = "SELECT * FROM PATIENTS";
         PreparedStatement stmt = getConnection().prepareStatement(query);
 
         ObservableList<Patients> result = FXCollections.observableArrayList();
