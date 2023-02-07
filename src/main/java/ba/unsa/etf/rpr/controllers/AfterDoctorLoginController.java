@@ -6,6 +6,7 @@ import ba.unsa.etf.rpr.business.RecordManager;
 import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
+import ba.unsa.etf.rpr.exceptions.MyException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,7 +65,7 @@ public class AfterDoctorLoginController implements Initializable {
         this.DocUsername = DocUsername;
         this.doctor_id = doctor_id; }
 
-    public void searchByUser(){
+    public void searchByUser() throws MyException {
         if(txtfield.getText().equals("")){ warning.setText("You have to input data for search"); return; }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
@@ -103,8 +104,8 @@ public class AfterDoctorLoginController implements Initializable {
 
     public void addPatient() throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addpatient.fxml"));
-        AddPatientController apc = new AddPatientController(doctor_id);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addrecord.fxml"));
+        AddRecordController apc = new AddRecordController(doctor_id);
         fxmlLoader.setController(apc);
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
@@ -128,12 +129,16 @@ public class AfterDoctorLoginController implements Initializable {
             Patients selected = (Patients)patientList.getSelectionModel().getSelectedItem();
             Records rec = new Records();
             RecordManager rdi = new RecordManager();
-            rec = rdi.getById(selected.getRecord_id());
+            try {
+                rec = rdi.getById(selected.getRecord_id());
+            } catch (MyException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println(selected);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
             DoctorManager doctor = new DoctorManager();
-            PatientRecordController pr = new PatientRecordController(selected, rec, doctor.searchByUsername(DocUsername), "d");
-            fxmlLoader.setController(pr);
+            PatientRecordController patientRecordController = new PatientRecordController(selected, rec, doctor.searchByUsername(DocUsername), "d");
+            fxmlLoader.setController(patientRecordController);
             Parent root = null;
             try {
                 root = fxmlLoader.load();
