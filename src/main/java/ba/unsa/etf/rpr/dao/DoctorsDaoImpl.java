@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Doctors;
+import ba.unsa.etf.rpr.exceptions.MyException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
     }
 
     @Override
-    public Doctors rowToObject(ResultSet rs) {
+    public Doctors rowToObject(ResultSet rs) throws MyException {
         try {
             Doctors doc = new Doctors.DoctorBuilder(
                     rs.getInt("id"),
@@ -45,12 +46,12 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
             doc.setUsername(rs.getString("username"));
             return doc;*/
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new MyException(e.getMessage(), e);
         }
     }
 
     @Override
-    public Map<String, Object> objectToRow(Doctors object) {
+    public Map<String, Object> objectToRow(Doctors object){
         Map<String, Object> row = new TreeMap<>();
         row.put("id", object.getId());
         row.put("first_name", object.getFirst_name());
