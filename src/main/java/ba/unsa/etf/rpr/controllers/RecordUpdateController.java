@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.business.RecordManager;
 import ba.unsa.etf.rpr.domain.Records;
+import ba.unsa.etf.rpr.exceptions.MyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +34,7 @@ public class RecordUpdateController implements Initializable {
         this.who = who;
     }
 
-    public void add() throws SQLException {
+    public void add() throws SQLException, MyException {
 
         Stage stage = (Stage) add.getScene().getWindow();
 
