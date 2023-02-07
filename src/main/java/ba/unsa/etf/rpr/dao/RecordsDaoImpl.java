@@ -1,7 +1,11 @@
 package ba.unsa.etf.rpr.dao;
 
+import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,7 +36,7 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM RECORDS WHERE username = '" + username + "'");
             while(res.next()){
-                rec = new Records(res.getInt("id"), res.getInt("patient_id"),
+                rec = new Records(res.getInt("patient_id"),
                         res.getInt("doctor_id"), res.getString("diagnosis"),
                         res.getString("allergies"), res.getString("prescriptions"),
                         res.getDouble("height"), res.getDouble("weight"), res.getString("blood"));
@@ -72,11 +76,62 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
         row.put("doctor_id", object.getDoctor_id());
         row.put("diagnosis", object.getDiagnosis());
         row.put("allergies", object.getAllergies());
-        row.put("treatments", object.getPrescriptions());
+        row.put("prescriptions", object.getPrescriptions());
         row.put("height", object.getHeight());
         row.put("weight", object.getWeight());
         row.put("blood", object.getBlood());
         return row;
     }
 
+
+    public ObservableList<String> allergies(int patientID) throws SQLException {
+        String query = "SELECT allergies FROM RECORDS WHERE ID = " + patientID;
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+
+        ObservableList<String> result = FXCollections.observableArrayList();
+
+        try {
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                result.add(rs.getString("allergies"));
+            }
+        }catch (SQLException sqle){
+            System.out.println(sqle.getErrorCode());
+        }
+
+        return result;
+
+    }
+
+    public ObservableList<String> prescriptions(int patientID) throws SQLException {
+        String query = "SELECT prescriptions FROM RECORDS WHERE ID = " + patientID;
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+
+        ObservableList<String> result = FXCollections.observableArrayList();
+
+        try {
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                result.add(rs.getString("prescriptions"));
+            }
+        }catch (SQLException sqle){
+            System.out.println(sqle.getErrorCode());
+        }
+
+        return result;
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
