@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.business.DoctorManager;
 import ba.unsa.etf.rpr.business.PatientManager;
-import ba.unsa.etf.rpr.dao.PatientsDaoImpl;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.exceptions.MyException;
 import javafx.event.ActionEvent;
@@ -11,12 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.IOException;
+
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class AddPatientController implements Initializable {
