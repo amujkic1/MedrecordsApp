@@ -139,4 +139,9 @@ public class Doctors implements Idable {
         }
     }
 
+    @Override
+    public String toString(){
+        return first_name + " " + last_name + "(" + specialization + ")";
+    }
+
 }
