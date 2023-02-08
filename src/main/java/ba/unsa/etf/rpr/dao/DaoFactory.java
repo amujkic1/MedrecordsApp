@@ -9,6 +9,7 @@ public class DaoFactory {
     private static final PatientsDao patientDao = PatientsDaoImpl.getInstance();
     private static final RecordsDao recordDao = RecordsDaoImpl.getInstance();
 
+    private static final AppointmentDao appointmentsDao = AppointmentDaoImpl.getInstance();
     private DaoFactory(){}
 
     public static DoctorsDao doctorDao(){
@@ -22,5 +23,7 @@ public class DaoFactory {
     public static RecordsDao recordsDao(){
         return recordDao;
     }
+
+    public static AppointmentDao appointmentDao(){ return appointmentsDao; }
 
 }
