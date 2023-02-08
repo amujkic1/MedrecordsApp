@@ -47,13 +47,8 @@ public class LoginController implements Initializable {
     @FXML
     private Label error;
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
     public LoginController(){}
     public void login(ActionEvent event) throws IOException, MyException {
-        System.out.println("login");
         validateLogin();
     }
 
@@ -78,18 +73,9 @@ public class LoginController implements Initializable {
             }
 
             if(code.equals("ok")) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterdoctorlogin.fxml"));
                 AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(username.getText(),
                         doc.searchByUsername(username.getText()).getId());
-                fxmlLoader.setController(afterDoctorLoginController);
-                Parent root = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setResizable(false);
-                stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-                stage.show();
-                Stage s = new Stage();
-                s = (Stage) username.getScene().getWindow();
-                s.close();
+                newWindow("/fxml/afterdoctorlogin.fxml", afterDoctorLoginController, 1, 0);
             }
         }
 
@@ -106,8 +92,12 @@ public class LoginController implements Initializable {
                 new animatefx.animation.Shake(password).play();
             }
 
+            if(code.equals("no record")){
+                error.setText("Please wait until your record is made");
+                return;
+            }
+
             if(code.equals("ok")) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/patientrecord.fxml"));
                 PatientManager pat = new PatientManager();
                 DoctorManager dom = new DoctorManager();
                 RecordManager rm = new RecordManager();
@@ -116,14 +106,8 @@ public class LoginController implements Initializable {
                 Records rec = rm.getById(patient.getRecord_id());
 
                 PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor, "p");
-                fxmlLoader.setController(patientRecordController);
+                newWindow("/fxml/patientrecord.fxml", patientRecordController, 1, 1);
 
-                Parent root = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-                stage.show();
-                Stage s = (Stage) username.getScene().getWindow();
-                s.close();
             }
         }
     }
@@ -147,15 +131,25 @@ public class LoginController implements Initializable {
             }
         }
         else if(choice.getValue().equals("Patient")){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addpatient.fxml"));
             AddPatientController apc = new AddPatientController(0);
-            fxmlLoader.setController(apc);
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-            stage.show();
-            Stage s = (Stage)username.getScene().getWindow();
+            newWindow("/fxml/addpatient.fxml", apc, 0, 1);
         }
+    }
+
+    public void newWindow(String file, Object o, int close, int resizable) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(file));
+        if(o != null)
+            fxmlLoader.setController(o);
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        if(resizable==0){
+            stage.setResizable(false);
+        }
+        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        stage.show();
+        Stage s = (Stage) username.getScene().getWindow();
+        if(close==1)
+            s.close();
     }
 
     @Override
