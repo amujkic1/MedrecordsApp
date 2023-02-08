@@ -13,7 +13,6 @@ import java.util.TreeMap;
 
 public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDao {
 
-    //private Connection conn;
     private static PatientsDaoImpl instance = null;
 
     private PatientsDaoImpl(){
@@ -30,60 +29,6 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         if(instance!=null)
             instance=null;
     }
-
-    /*@Override
-    public void add(Patients item) {
-        String query = "INSERT INTO PATIENTS(id, first_name, last_name," +
-                "address, email," +
-                " telephone, age, gender," +
-                "record_id, password, username, doctor_id ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1,item.getPatient_id());
-            stmt.setString(2,item.getFirst_name());
-            stmt.setString(3,item.getLast_name());
-            stmt.setString(4,item.getAddress());
-            stmt.setString(5, item.getEmail());
-            stmt.setString(6, item.getTelephone());
-            stmt.setInt(7,item.getAge());
-            stmt.setString(8, item.getGender());
-            stmt.setInt(9, item.getRecord_id());
-            stmt.setString(10,item.getPassword());
-            stmt.setString(11,item.getUsername());
-            stmt.setInt(12,item.getDoctor_id());
-            stmt.executeUpdate();
-            stmt.close();
-        }catch(SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-    }
-
-    @Override
-    public void update(Patients item, int id) {
-        String query = "UPDATE PATIENTS SET first_name = ?, last_name = ?, address = ?," +
-                "email = ?, telephone = ?, age = ?, gender = ?, record_id = ?, " +
-                "password = ?, username = ?, doctor_id = ?" +
-                "WHERE id = " + id;
-        try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1,item.getPatient_id());
-            stmt.setString(2,item.getFirst_name());
-            stmt.setString(3,item.getLast_name());
-            stmt.setString(4,item.getAddress());
-            stmt.setString(5, item.getEmail());
-            stmt.setString(6, item.getTelephone());
-            stmt.setInt(7,item.getAge());
-            stmt.setString(8, item.getGender());
-            stmt.setInt(9, item.getRecord_id());
-            stmt.setString(10,item.getPassword());
-            stmt.setString(11,item.getUsername());
-            stmt.setInt(12,item.getDoctor_id());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-    }*/
 
     @Override
     public Patients rowToObject(ResultSet rs) {
@@ -125,42 +70,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         return row;
     }
 
-   /* @Override
-    public Patients getById(int id) {
-        //sta ako nema kljuca pod id
-        Patients p = null;
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM PATIENTS WHERE id = " + id);
-            while (res.next()) {
-                p = new Patients(res.getInt("id"), res.getString("first_name"),
-                        res.getString("last_name"),
-                        res.getString("address"), res.getString("email"),
-                        res.getString("telephone"), res.getInt("age"),
-                        res.getString("gender"), res.getInt("record_id"),
-                        res.getString("password"), res.getString("username"),
-                        res.getInt("doctor_id"));
-            }
-            //vidi treba li stmt.executeUpdate
-            stmt.close();
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-        return p;
-    }*/
 
-/*
-    @Override
-    public void delete(int id) {
-        String query = "DELETE FROM PATIENTS WHERE id = " + id;
-        try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.executeUpdate();
-            stmt.close();
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-    }*/
 
     @Override
     public Patients findByUsername(String username) {
@@ -181,7 +91,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         }
         return patient;
     }
-
+/*
     @Override
     public int numberOfRows() {
         int num=0;
@@ -189,9 +99,6 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         try {
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery(query);
-            /*while(res.next()){
-                num = res.getInt(1);
-            }*/
             res.next();
             num = res.getInt(1);
             System.out.println(num);
@@ -200,7 +107,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
             System.out.println(sqle.getErrorCode());
         }
         return num;
-    }
+    }*/
 
     @Override
     public Patients searchByUsername(String username) {
