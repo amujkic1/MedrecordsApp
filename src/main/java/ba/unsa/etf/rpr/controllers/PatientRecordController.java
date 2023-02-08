@@ -46,8 +46,6 @@ public class PatientRecordController implements Initializable {
     private Label error;
     private Patients patient;
     private Records rec;
-    private RecordsDaoImpl tmp;
-    private int record_id;
     private Doctors doctor;
     private String who;
 
@@ -58,27 +56,13 @@ public class PatientRecordController implements Initializable {
         this.who = who;
     }
 
-
     public void back() throws IOException {
         if(who.equals("d")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/afterdoctorlogin.fxml"));
             AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(doctor.getUsername(),
                     doctor.getId());
-            fxmlLoader.setController(afterDoctorLoginController);
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-            stage.show();
-            Stage s = (Stage) name.getScene().getWindow();
-            s.close();
+            newWindow("/fxml/afterdoctorlogin.fxml", afterDoctorLoginController, 1, 0);
         }else{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-            stage.show();
-            Stage s = (Stage) name.getScene().getWindow();
-            s.close();
+            newWindow("/fxml/sample.fxml", null, 1, 0);
         }
     }
 
@@ -101,28 +85,38 @@ public class PatientRecordController implements Initializable {
         }
     }
 
+    public void createAppointment() throws IOException {
+
+        CreateAppointmentController createAppointmentController = new CreateAppointmentController(patient.getId());
+        newWindow("/fxml/createappointment.fxml", createAppointmentController, 0, 0);
+
+    }
     public void addDiagnosis() throws IOException {
         if(who.equals("p")){ error.setText("This is not allowed for patients"); return; }
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/newdiagnosis.fxml"));
         RecordUpdateController recordUpdateController = new RecordUpdateController(rec.getId(), "diagnosis", who);
-        fxmlLoader.setController(recordUpdateController);
-        Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-        stage.show();
-        Stage s = (Stage) name.getScene().getWindow();
+        newWindow("/fxml/newdiagnosis.fxml", recordUpdateController, 0, 0);
     }
 
     public void addPrescription() throws IOException {
         if(who.equals("p")){ error.setText("This is not allowed for patients"); return; }
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/newdiagnosis.fxml"));
         RecordUpdateController recordUpdateController = new RecordUpdateController(rec.getId(), "prescription", who);
-        fxmlLoader.setController(recordUpdateController);
+        newWindow("/fxml/newdiagnosis.fxml", recordUpdateController, 0, 0);
+    }
+
+    public void newWindow(String file, Object o, int close, int resizable) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(file));
+        if(o != null)
+            fxmlLoader.setController(o);
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
+        if(resizable==0){
+            stage.setResizable(false);
+        }
         stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
         stage.show();
-        Stage s = (Stage) name.getScene().getWindow();
+        Stage s = (Stage) addp.getScene().getWindow();
+        if(close==1)
+            s.close();
     }
 
     @Override
