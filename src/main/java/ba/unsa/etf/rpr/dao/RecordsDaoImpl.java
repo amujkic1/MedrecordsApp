@@ -1,6 +1,5 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -122,16 +121,4 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
 
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
