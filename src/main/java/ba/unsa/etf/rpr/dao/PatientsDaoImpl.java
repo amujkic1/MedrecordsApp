@@ -91,23 +91,6 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         }
         return patient;
     }
-/*
-    @Override
-    public int numberOfRows() {
-        int num=0;
-        String query = "select count(id) from PATIENTS;";
-        try {
-            Statement stmt = getConnection().createStatement();
-            ResultSet res = stmt.executeQuery(query);
-            res.next();
-            num = res.getInt(1);
-            System.out.println(num);
-            stmt.close();
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-        return num;
-    }*/
 
     @Override
     public Patients searchByUsername(String username) {
