@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,7 +30,6 @@ public class CreateAppointmentController implements Initializable {
     public CreateAppointmentController(int patient_id){
         this.patient = patient_id;
     }
-
 
     public void createAppointment() throws MyException {
 
@@ -50,12 +48,11 @@ public class CreateAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DoctorManager dm = new DoctorManager();
-        List<Doctors> doctors = new ArrayList<>();
         try {
-            doctors = dm.getAll();
+            List<Doctors> doctors = dm.getAll();
+            choice.getItems().addAll(doctors);
         } catch (MyException e) {
             throw new RuntimeException(e);
         }
-        choice.getItems().addAll(doctors);
     }
 }
