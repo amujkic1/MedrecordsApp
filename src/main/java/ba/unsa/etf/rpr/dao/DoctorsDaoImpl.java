@@ -31,20 +31,6 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
                     Gender(rs.getString("gender")).
                     Specialization(rs.getString("specialization")).build();
             return doc;
-
-            /*Doctors doc = new Doctors();
-            doc.setId(rs.getInt("id"));
-            doc.setFirst_name(rs.getString("first_name"));
-            doc.setLast_name(rs.getString("last_name"));
-            doc.setAddress(rs.getString("address"));
-            doc.setEmail(rs.getString("email"));
-            doc.setTelephone(rs.getString("telephone"));
-            doc.setAge(rs.getInt("age"));
-            doc.setGender(rs.getString("gender"));
-            doc.setSpecialization(rs.getString("specialization"));
-            doc.setPassword(rs.getString("password"));
-            doc.setUsername(rs.getString("username"));
-            return doc;*/
         } catch (SQLException e) {
             throw new MyException(e.getMessage(), e);
         }
@@ -78,89 +64,6 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
             instance=null;
     }
 
-    /*@Override
-    public void add(Doctors item) {
-        String query = "INSERT INTO DOCTORS(id, first_name, last_name, address, email," +
-                "telephone, age, gender, specialization, password, username)" +
-                "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1,item.getDoctor_id());
-            stmt.setString(2,item.getFirst_name());
-            stmt.setString(3,item.getLast_name());
-            stmt.setString(4,item.getAddress());
-            stmt.setString(5,item.getEmail());
-            stmt.setString(6,item.getTelephone());
-            stmt.setInt(7,item.getAge());
-            stmt.setString(8,item.getGender());
-            stmt.setString(9,item.getSpecialization());
-            stmt.setString(10,item.getPassword());
-            stmt.setString(11,item.getUsername());
-            stmt.executeUpdate();
-            stmt.close();
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-    }*/
-
-    /*@Override
-    public void update(Doctors item, int id) {
-        String query = "UPDATE DOCTORS SET first_name = ?, last_name = ?, address = ?," +
-                "email = ?, telephone = ?, age = ?, gender = ?, specialization = ?," +
-                "password = ?, username = ?" +
-                "WHERE doctor_id = " + id;
-        try{
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1,item.getDoctor_id());
-            stmt.setString(2,item.getFirst_name());
-            stmt.setString(3,item.getLast_name());
-            stmt.setString(4,item.getAddress());
-            stmt.setString(5,item.getEmail());
-            stmt.setString(6,item.getTelephone());
-            stmt.setInt(7,item.getAge());
-            stmt.setString(8,item.getGender());
-            stmt.setString(9,item.getSpecialization());
-            stmt.setString(10,item.getPassword());
-            stmt.setString(11,item.getUsername());
-            stmt.executeUpdate();
-            stmt.close();
-        }catch(SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-    }*/
-
-    /*@Override
-    public Doctors getById(int id) {
-        Doctors d = null;
-        try{
-            Statement stmt = conn.createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM DOCTORS WHERE id = " + id);
-            while(res.next()){
-                d = new Doctors(res.getInt("doctor_id"), res.getString("first_name"),
-                        res.getString("last_name"), res.getString("address"),
-                        res.getString("email"), res.getString("telephone"),
-                        res.getInt("age"), res.getString("gender"),
-                        res.getString("specialization"),
-                        res.getString("password"), res.getString("username"));
-            }
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-        return d;
-    }*/
-
-    /*@Override
-    public void delete(int id) {
-        String query = "DELETE FROM DOCTORS WHERE id = " + id;
-        try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.executeUpdate();
-            stmt.close();
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-    }*/
-
     public Doctors searchByUsername(String username){
         Doctors d = null;
         try{
@@ -180,12 +83,6 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
                         Gender(res.getString("gender")).
                         Specialization(res.getString("specialization")).build();
 
-                /*d = new Doctors(res.getInt("id"), res.getString("first_name"),
-                        res.getString("last_name"), res.getString("address"),
-                        res.getString("email"), res.getString("telephone"),
-                        res.getInt("age"), res.getString("gender"),
-                        res.getString("specialization"),
-                        res.getString("password"), res.getString("username"));*/
             }
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
