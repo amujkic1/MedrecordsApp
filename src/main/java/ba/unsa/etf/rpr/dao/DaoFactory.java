@@ -1,8 +1,5 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.domain.Doctors;
-
-
 public class DaoFactory {
 
     private static final DoctorsDao doctorDao = DoctorsDaoImpl.getInstance();
