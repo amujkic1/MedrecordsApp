@@ -1,8 +1,10 @@
 package ba.unsa.etf.rpr;
 
+import ba.unsa.etf.rpr.business.DoctorManager;
 import ba.unsa.etf.rpr.dao.*;
 import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
+import ba.unsa.etf.rpr.exceptions.MyException;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,15 +21,6 @@ public class App
 {
     public static void main( String[] args )
     {
-
-        DoctorsDao doc = new DoctorsDaoImpl();
-        Doctors newdoc = new Doctors(11, "Steven", "Bennet", "2376 Alpha Avenue",
-                "sbennet@gmail.com", "270-415-4762", 40, "m", "pediatrist",
-                "acfe345wdr", "StevenBennet");
-
-
-        //doc.add(newdoc);
-        //doc.delete(11);
 
         /*Properties database_prop = new Properties();
         InputStream resource = null;
