@@ -28,4 +28,8 @@ public class AppointmentManager {
     public void delete(int id) throws MyException {
         DaoFactory.appointmentDao().delete(id);
     }
+
+    public Appointments searchByPatient(int patient_id) throws SQLException{
+        return DaoFactory.appointmentDao().searchByPatient(patient_id);
+    }
 }
