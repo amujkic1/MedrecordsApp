@@ -1,5 +1,5 @@
 package ba.unsa.etf.rpr.dao;
-//dao class
+
 import ba.unsa.etf.rpr.domain.Appointments;
 
 import java.sql.SQLException;
