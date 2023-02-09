@@ -1,7 +1,11 @@
 package ba.unsa.etf.rpr.controllers;
 
+import ba.unsa.etf.rpr.App;
+import ba.unsa.etf.rpr.business.AppointmentManager;
 import ba.unsa.etf.rpr.business.RecordManager;
+import ba.unsa.etf.rpr.dao.Dao;
 import ba.unsa.etf.rpr.dao.RecordsDaoImpl;
+import ba.unsa.etf.rpr.domain.Appointments;
 import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
@@ -19,6 +23,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -34,6 +40,8 @@ public class PatientRecordController implements Initializable {
     private Label weight;
     @FXML
     private Button tbBack;
+    @FXML
+    private Label appointmentlabel;
     @FXML
     private ListView<String> list;
     @FXML
@@ -131,6 +139,20 @@ public class PatientRecordController implements Initializable {
         choiceBox.setOnAction(e -> {
             fill();
         });
+
+        if(who.equals("p")){
+            AppointmentManager am = new AppointmentManager();
+            try {
+                Appointments app = am.searchByPatient(patient.getId());
+                if(app != null){
+                    appointmentlabel.setText("You have an appointment on " + app.getDate());
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getErrorCode());
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 
