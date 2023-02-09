@@ -1,5 +1,5 @@
 package ba.unsa.etf.rpr.business;
-//manager class
+
 import ba.unsa.etf.rpr.dao.DaoFactory;
 import ba.unsa.etf.rpr.domain.Appointments;
 import ba.unsa.etf.rpr.exceptions.MyException;
