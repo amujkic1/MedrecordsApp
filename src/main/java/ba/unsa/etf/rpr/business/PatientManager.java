@@ -14,6 +14,7 @@ public class PatientManager {
         if(username==null) return "empty user field";
         if(password==null) return "empty password field";
         if(findByUsername(username)==null) return "username does not exist";
+        if(findByUsername(username).getRecord_id() == 0) return "no record";
         if(!findByUsername(username).getPassword().equals(password)) return "wrong password";
         else return "ok";
     }
