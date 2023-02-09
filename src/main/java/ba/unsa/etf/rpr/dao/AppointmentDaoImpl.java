@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.exceptions.MyException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.TreeMap;
@@ -49,4 +50,21 @@ public class AppointmentDaoImpl extends AbstractDao<Appointments> implements App
         row.put("date", object.getDate());
         return row;
     }
+
+    @Override
+    public Appointments searchByPatient(int patient_id) throws SQLException {
+        Appointments app = null;
+        try {
+            Statement stmt = getConnection().createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM APPOINTMENTS WHERE patient_id = " + patient_id);
+            while(res.next()){
+                app = new Appointments(res.getInt("doctor_id"), res.getInt("patient_id"),
+                        res.getDate("date").toLocalDate());
+            }
+        }catch (SQLException sqle){
+            System.out.println(sqle.getErrorCode());
+        }
+        return app;
+    }
+
 }
