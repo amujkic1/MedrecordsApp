@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.dao;
 
+import ba.unsa.etf.rpr.business.PatientManager;
+import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,10 +32,12 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
     }
 
     public Records findUserRecord(String username){
+        PatientManager patientManager = new PatientManager();
+        Patients patient = patientManager.findByUsername(username);
         Records rec = null;
         try{
             Statement stmt = getConnection().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM RECORDS WHERE username = '" + username + "'");
+            ResultSet res = stmt.executeQuery("SELECT * FROM RECORDS WHERE patient_id = " + patient.getId());
             while(res.next()){
                 rec = new Records(res.getInt("patient_id"),
                         res.getInt("doctor_id"), res.getString("diagnosis"),
