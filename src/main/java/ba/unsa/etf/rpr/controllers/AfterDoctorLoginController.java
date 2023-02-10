@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -61,15 +62,19 @@ public class AfterDoctorLoginController implements Initializable {
     public void searchByUser() throws MyException, IOException {
         if(txtfield.getText().equals("")){ warning.setText("You have to input data for search"); return; }
 
-        PatientManager pat = new PatientManager();
-        DoctorManager dom = new DoctorManager();
-        RecordManager rm = new RecordManager();
-        Patients patient = pat.findByUsername(txtfield.getText());
-        Doctors doctor = dom.getById(patient.getDoctor_id());
-        Records rec = rm.getById(patient.getRecord_id());
+            PatientManager pat = new PatientManager();
+            DoctorManager dom = new DoctorManager();
+            RecordManager rm = new RecordManager();
+            Patients patient = pat.findByUsername(txtfield.getText());
+            if(patient==null){
+                warning.setText("This name does not exist in the base");
+                return;
+            }
+            Doctors doctor = dom.getById(patient.getDoctor_id());
+            Records rec = rm.getById(patient.getRecord_id());
+            PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor, "d");
+            newWindow("/fxml/patientrecord.fxml", patientRecordController, 1, 0);
 
-        PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor, "d");
-        newWindow("/fxml/patientrecord.fxml", patientRecordController, 1, 0);
 
     }
 
