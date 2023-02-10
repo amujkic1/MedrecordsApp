@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.controllers;
 
+import ba.unsa.etf.rpr.business.AppointmentManager;
 import ba.unsa.etf.rpr.business.DoctorManager;
 import ba.unsa.etf.rpr.business.PatientManager;
 import ba.unsa.etf.rpr.business.RecordManager;
@@ -7,6 +8,7 @@ import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
 import ba.unsa.etf.rpr.exceptions.MyException;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -109,24 +113,31 @@ public class AfterDoctorLoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PatientManager pdao = new PatientManager();
         DoctorManager ddao = new DoctorManager();
+        AppointmentManager appointmentManager = new AppointmentManager();
+
         try {
-            patientList.setItems(pdao.allPatients(ddao.searchByUsername(DocUsername).getId()));
+            patientList.setItems(appointmentManager.haveAppointmentAtDoctor(doctor_id));
+            //patientList.setItems(pdao.allPatients(ddao.searchByUsername(DocUsername).getId()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+
         patientList.setOnMouseClicked(event -> {
-            Patients selected = (Patients)patientList.getSelectionModel().getSelectedItem();
+            String selected = (String) patientList.getSelectionModel().getSelectedItem();
             Records rec = new Records();
             RecordManager rdi = new RecordManager();
+            PatientManager patientManager = new PatientManager();
+
             try {
-                rec = rdi.getById(selected.getRecord_id());
-            } catch (MyException e) {
+                rec = rdi.findUserRecord(selected);
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
 
             DoctorManager doctor = new DoctorManager();
-            PatientRecordController patientRecordController = new PatientRecordController(selected, rec, doctor.searchByUsername(DocUsername), "d");
+            PatientRecordController patientRecordController = new PatientRecordController(patientManager.findByUsername(selected),
+                    rec, doctor.searchByUsername(DocUsername), "d");
             try {
                 newWindow("/fxml/patientrecord.fxml", patientRecordController, 1, 0);
             } catch (IOException e) {
