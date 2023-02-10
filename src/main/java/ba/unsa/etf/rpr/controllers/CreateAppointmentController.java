@@ -41,6 +41,7 @@ public class CreateAppointmentController implements Initializable {
 
     public void createAppointment() throws MyException {
 
+        int count = 0;
         Stage stage = (Stage) okbttn.getScene().getWindow();
 
         try {
@@ -51,15 +52,27 @@ public class CreateAppointmentController implements Initializable {
                 return;
             }
             Doctors doc = (Doctors) choice.getValue();
+
+            LocalDate today = LocalDate.now();
+
             LocalDate ld = datepicker.getValue();
 
-            /*PatientManager patientManager = new PatientManager();
-            Patients oldpatient = patientManager.getById(patient);
-            oldpatient.setDoctor_id(doc.getId());
-            patientManager.update(oldpatient);*/
-            PatientManager patientManager = new PatientManager();
-            Appointments app = new Appointments(patient, doc.getId(), ld, patientManager.getById(patient).getUsername());
-            am.add(app);
+            count = am.countAppointments(patient, doc.getId());
+
+            if(ld.compareTo(today) < 0){
+                error.setText("You can't make an appointment in the past");
+                return;
+            }
+
+            if(count == 0) {
+                PatientManager patientManager = new PatientManager();
+                Appointments app = new Appointments(patient, doc.getId(), ld, patientManager.getById(patient).getUsername());
+                am.add(app);
+            }else{
+                error.setText("You already have an appointment with this doctor");
+                return;
+                //throw new MyException("You already have an appointment with this doctor");
+            }
         }
         catch (Exception e){
             throw new MyException(e.getMessage(), e);
