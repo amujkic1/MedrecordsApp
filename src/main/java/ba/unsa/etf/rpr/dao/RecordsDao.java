@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 
 public interface RecordsDao extends Dao<Records> {
-
+    public Records findUserRecord(String username);
     public ObservableList<String> allergies(int patientID) throws SQLException;
     public ObservableList<String> prescriptions(int patientID) throws SQLException;
 
