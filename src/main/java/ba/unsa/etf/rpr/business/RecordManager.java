@@ -33,6 +33,9 @@ public class RecordManager {
         return DaoFactory.recordsDao().allergies(patientID);
     }
 
+    public Records findUserRecord(String username){
+        return DaoFactory.recordsDao().findUserRecord(username);
+    }
     public ObservableList<String> prescriptions(int patientID) throws SQLException{
         return DaoFactory.recordsDao().prescriptions(patientID);
     }
