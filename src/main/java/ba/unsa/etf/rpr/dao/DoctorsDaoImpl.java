@@ -24,11 +24,6 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
                     rs.getString("password")).
                     First_name(rs.getString("first_name")).
                     Last_name(rs.getString("last_name")).
-                    Address(rs.getString("address")).
-                    Email(rs.getString("email")).
-                    Telephone(rs.getString("telephone")).
-                    Age(rs.getInt("age")).
-                    Gender(rs.getString("gender")).
                     Specialization(rs.getString("specialization")).build();
             return doc;
         } catch (SQLException e) {
@@ -42,11 +37,6 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
         row.put("id", object.getId());
         row.put("first_name", object.getFirst_name());
         row.put("last_name", object.getLast_name());
-        row.put("address", object.getAddress());
-        row.put("email", object.getEmail());
-        row.put("telephone", object.getTelephone());
-        row.put("age", object.getAge());
-        row.put("gender", object.getGender());
         row.put("specialization", object.getSpecialization());
         row.put("password", object.getPassword());
         row.put("username", object.getUsername());
@@ -76,11 +66,6 @@ public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
                         res.getString("password")).
                         First_name(res.getString("first_name")).
                         Last_name(res.getString("last_name")).
-                        Address(res.getString("address")).
-                        Email(res.getString("email")).
-                        Telephone(res.getString("telephone")).
-                        Age(res.getInt("age")).
-                        Gender(res.getString("gender")).
                         Specialization(res.getString("specialization")).build();
 
             }
