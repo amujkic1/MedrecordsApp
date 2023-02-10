@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
+import ba.unsa.etf.rpr.business.AppointmentManager;
 import ba.unsa.etf.rpr.domain.Patients;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,6 +114,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
     }
 
     public ObservableList<Patients> allPatients(int docId) throws SQLException {
+
         String query = "SELECT * FROM PATIENTS WHERE doctor_id = " + docId;
         PreparedStatement stmt = getConnection().prepareStatement(query);
 
@@ -129,9 +131,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
-
         return result;
-
     }
 
 }
