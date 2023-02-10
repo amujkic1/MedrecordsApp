@@ -57,8 +57,8 @@ public class CreateAppointmentController implements Initializable {
             Patients oldpatient = patientManager.getById(patient);
             oldpatient.setDoctor_id(doc.getId());
             patientManager.update(oldpatient);*/
-
-            Appointments app = new Appointments(patient, doc.getId(), ld);
+            PatientManager patientManager = new PatientManager();
+            Appointments app = new Appointments(patient, doc.getId(), ld, patientManager.getById(patient).getUsername());
             am.add(app);
         }
         catch (Exception e){
