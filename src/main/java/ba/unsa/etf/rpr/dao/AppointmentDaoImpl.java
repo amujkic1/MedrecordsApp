@@ -55,6 +55,7 @@ public class AppointmentDaoImpl extends AbstractDao<Appointments> implements App
         row.put("patient_id", object.getPatient_id());
         row.put("doctor_id", object.getDoctor_id());
         row.put("date", object.getDate());
+        row.put("username", object.getUsername());
         return row;
     }
 
@@ -89,6 +90,22 @@ public class AppointmentDaoImpl extends AbstractDao<Appointments> implements App
             System.out.println(sqle.getErrorCode());
         }
         return result;
+    }
+
+    public int countAppointments(int patient_id, int doctor_id){
+        int count = 0;
+
+        String query = "SELECT COUNT(id) FROM APPOINTMENTS WHERE patient_id = " + patient_id + " AND doctor_id = " + doctor_id;
+        try{
+            Statement stmt = getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            count = rs.getInt(1);
+            stmt.close();
+        }catch (SQLException sqle) {
+            System.out.println(sqle.getErrorCode());
+        }
+        return count;
     }
 
 }
