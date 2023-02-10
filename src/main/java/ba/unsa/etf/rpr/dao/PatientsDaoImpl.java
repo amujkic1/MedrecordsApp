@@ -1,6 +1,5 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.business.AppointmentManager;
 import ba.unsa.etf.rpr.domain.Patients;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
