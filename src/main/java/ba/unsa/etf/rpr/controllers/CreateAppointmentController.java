@@ -2,8 +2,10 @@ package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.business.AppointmentManager;
 import ba.unsa.etf.rpr.business.DoctorManager;
+import ba.unsa.etf.rpr.business.PatientManager;
 import ba.unsa.etf.rpr.domain.Appointments;
 import ba.unsa.etf.rpr.domain.Doctors;
+import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.exceptions.MyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,6 +52,12 @@ public class CreateAppointmentController implements Initializable {
             }
             Doctors doc = (Doctors) choice.getValue();
             LocalDate ld = datepicker.getValue();
+
+            /*PatientManager patientManager = new PatientManager();
+            Patients oldpatient = patientManager.getById(patient);
+            oldpatient.setDoctor_id(doc.getId());
+            patientManager.update(oldpatient);*/
+
             Appointments app = new Appointments(patient, doc.getId(), ld);
             am.add(app);
         }
