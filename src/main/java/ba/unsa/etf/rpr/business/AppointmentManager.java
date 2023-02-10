@@ -37,4 +37,9 @@ public class AppointmentManager {
     public ObservableList<String> haveAppointmentAtDoctor(int doctor_id) throws SQLException{
         return DaoFactory.appointmentDao().haveAppointmentAtDoctor(doctor_id);
     }
+
+    public int countAppointments(int patient_id, int doctor_id){
+        return DaoFactory.appointmentDao().countAppointments(patient_id, doctor_id);
+    }
+
 }
