@@ -1,12 +1,18 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Appointments;
+import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.exceptions.MyException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -34,7 +40,8 @@ public class AppointmentDaoImpl extends AbstractDao<Appointments> implements App
             Appointments app = new Appointments(
                     rs.getInt("patient_id"),
                     rs.getInt("doctor_id"),
-                    LocalDate.parse("date"));
+                    LocalDate.parse("date"),
+                    rs.getString("username"));
             return app;
         }catch (SQLException sqle){
             throw new MyException(sqle.getMessage(), sqle);
@@ -59,12 +66,29 @@ public class AppointmentDaoImpl extends AbstractDao<Appointments> implements App
             ResultSet res = stmt.executeQuery("SELECT * FROM APPOINTMENTS WHERE patient_id = " + patient_id);
             while(res.next()){
                 app = new Appointments(res.getInt("doctor_id"), res.getInt("patient_id"),
-                        res.getDate("date").toLocalDate());
+                        res.getDate("date").toLocalDate(), res.getString("username"));
             }
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
         return app;
+    }
+
+    public ObservableList<String> haveAppointmentAtDoctor(int doctor_id) throws SQLException {
+        String query = "SELECT username FROM APPOINTMENTS WHERE doctor_id = " + doctor_id;
+        PreparedStatement stmt = getConnection().prepareStatement(query);
+
+        ObservableList<String> result = FXCollections.observableArrayList();
+
+        try {
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                result.add(rs.getString("username"));
+            }
+        }catch (SQLException sqle){
+            System.out.println(sqle.getErrorCode());
+        }
+        return result;
     }
 
 }
