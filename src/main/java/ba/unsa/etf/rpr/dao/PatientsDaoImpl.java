@@ -79,7 +79,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM PATIENTS WHERE username = '" + username + "'");
             while(res.next()){
-                patient = new Patients(res.getInt("id"), res.getString("first_name"),
+                patient = new Patients(res.getString("first_name"),
                         res.getString("last_name"), res.getString("address"),
                         res.getString("email"), res.getString("telephone"),
                         res.getInt("age"), res.getString("gender"),
@@ -99,7 +99,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM PATIENTS WHERE username = '" + username + "'");
             while(res.next()){
-                pt = new Patients(res.getInt("id"), res.getString("first_name"),
+                pt = new Patients(res.getString("first_name"),
                         res.getString("last_name"), res.getString("address"),
                         res.getString("email"), res.getString("telephone"),
                         res.getInt("age"), res.getString("gender"),
@@ -122,7 +122,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         try {
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                result.add(new Patients(rs.getInt(1), rs.getString(2), rs.getString(3),
+                result.add(new Patients(rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7),
                         rs.getString(8), rs.getInt(9), rs.getString(10),
                         rs.getString(11), rs.getInt(12)));
