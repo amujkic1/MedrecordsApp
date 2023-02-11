@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -38,6 +39,8 @@ public class AddPatientController implements Initializable {
     private Button addbttn;
     @FXML
     private Button cancelbttn;
+    @FXML
+    private Label error;
     int doctor_id;
 
 private Connection conn;
@@ -51,6 +54,8 @@ private Connection conn;
         DoctorManager doc = new DoctorManager();
 
         Stage stage = (Stage) addbttn.getScene().getWindow();
+
+        p.validateUsername(username_box.getText());
 
         Patients patient = new Patients(first_name_box.getText(), last_name_box.getText(),
                 address_box.getText(), email_box.getText(), telephone_box.getText(), Integer.parseInt(age_box.getText()),
