@@ -7,8 +7,5 @@ import java.sql.SQLException;
 
 public interface PatientsDao extends Dao<Patients> {
     Patients findByUsername(String username);
-
-    Patients searchByUsername(String username);
-
-    public ObservableList<Patients> allPatients(int docId) throws SQLException;
+    ObservableList<Patients> allPatients(int docId) throws SQLException;
 }
