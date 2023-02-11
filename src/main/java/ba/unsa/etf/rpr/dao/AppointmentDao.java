@@ -8,8 +8,8 @@ import java.sql.SQLException;
 public interface AppointmentDao extends Dao<Appointments>{
 
     Appointments searchByPatient(int patient_id) throws SQLException;
-    public ObservableList<String> haveAppointmentAtDoctor(int doctor_id) throws SQLException;
+    ObservableList<String> haveAppointmentAtDoctor(int doctor_id) throws SQLException;
 
-    public int countAppointments(int patient_id, int doctor_id);
+    int countAppointments(int patient_id, int doctor_id);
 
 }
