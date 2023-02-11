@@ -40,7 +40,11 @@
                   <TextField fx:id="last_name_box" layoutX="8.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="last name" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <TextField fx:id="telephone_box" layoutX="14.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="telephone" />
+                  <Label fx:id="telephone" layoutX="14.0" layoutY="4.0" text="Telephone" />
+               </children></AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <TextField fx:id="address_box" layoutX="21.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="address" />
@@ -55,8 +59,8 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="telephone_box" layoutX="24.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="telephone" />
-                  <Label fx:id="telephone" layoutX="24.0" text="Telephone" />
+                  <TextField fx:id="age_box" layoutX="22.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="age" />
+                  <Label fx:id="age" layoutX="22.0" layoutY="4.0" text="Age" />
                </children>
             </AnchorPane>
          </children>
@@ -76,33 +80,31 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="age_box" layoutX="15.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="age" />
-                  <Label fx:id="age" layoutX="14.0" layoutY="14.0" text="Age" />
+                  <Label fx:id="gender" layoutX="14.0" layoutY="14.0" text="Gender" />
+                  <TextField fx:id="gender_box" layoutX="14.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="gender" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="gender_box" layoutX="14.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="gender" />
-                  <Label fx:id="gender" layoutX="14.0" layoutY="14.0" text="Gender" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <TextField fx:id="username_box" layoutX="14.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="username" />
+                  <TextField fx:id="username_box" layoutX="14.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="username" />
                   <Label fx:id="username" layoutX="14.0" layoutY="14.0" text="Username" />
                </children>
             </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <TextField fx:id="password_box" layoutX="14.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="password" />
+                  <Label fx:id="password" layoutX="12.0" text="Password" />
+               </children></AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="password_box" layoutX="14.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="password" />
-                  <Label fx:id="password" layoutX="14.0" layoutY="14.0" text="Password" />
+                  <Label fx:id="error" layoutX="14.0" layoutY="42.0" textFill="RED" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="addbttn" defaultButton="true" layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#addPatientToBase" text="ADD" />
-                  <Button fx:id="cancelbttn" cancelButton="true" layoutX="89.0" layoutY="26.0" mnemonicParsing="false" onAction="#cancel" text="CANCEL" />
+                  <Button fx:id="cancelbttn" cancelButton="true" layoutX="89.0" layoutY="21.0" mnemonicParsing="false" onAction="#cancel" text="CANCEL" />
+                  <Button fx:id="addbttn" defaultButton="true" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#addPatientToBase" text="ADD" />
                </children>
             </AnchorPane>
          </children>
