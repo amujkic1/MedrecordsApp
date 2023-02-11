@@ -10,7 +10,15 @@ import java.util.List;
 
 public class PatientManager {
 
-    public String validatePatientLogin(String username, String password){
+
+    public void validateUsername(String username) throws MyException {
+        if(username.length() < 5 || username.length() > 20){
+            throw new MyException("Username must be between 5 and 20 characters");
+        }
+    }
+
+    public String validatePatientLogin(String username, String password) {
+
         if(username==null) return "empty user field";
         if(password==null) return "empty password field";
         if(findByUsername(username)==null) return "username does not exist";
