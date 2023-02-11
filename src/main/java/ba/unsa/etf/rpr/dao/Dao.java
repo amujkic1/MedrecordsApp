@@ -17,5 +17,5 @@ public interface Dao<T> {
 
     void delete(int id) throws MyException;
 
-    public List<T> getAll() throws MyException;
+    List<T> getAll() throws MyException;
 }
