@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class LoginController implements Initializable {
-
     @FXML
     private Button button;
     @FXML
@@ -70,6 +69,12 @@ public class LoginController implements Initializable {
             if(code.equals("empty password field") || code.equals("wrong password")){
                 password.setStyle("-fx-border-color: red; -fx-border-width: 2px ;");
                 new animatefx.animation.Shake(password).play();
+            }
+
+            if (code.equals("Username must be between 5 and 20 characters")){
+                username.setStyle("-fx-border-color: red; -fx-border-width: 2px ;");
+                new animatefx.animation.Shake(username).play();
+                error.setText("Username must be between 5 and 20 characters");
             }
 
             if(code.equals("ok")) {
