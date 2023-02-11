@@ -13,9 +13,11 @@ public class Records implements Idable {
 
 
     public Records(){}
+    public Records(int patient_id){
+        this.patient_id = patient_id;
+    }
     public Records(int patient_id, int doctor_id, String diagnosis, String allergies, String prescriptions,
                    Double height, Double weight, String blood) {
-        //this.id = id;
         this.patient_id = patient_id;
         this.doctor_id = doctor_id;
         this.diagnosis = diagnosis;
