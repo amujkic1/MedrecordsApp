@@ -70,8 +70,6 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
         return row;
     }
 
-
-
     @Override
     public Patients findByUsername(String username) {
         Patients patient = null;
@@ -79,7 +77,7 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM PATIENTS WHERE username = '" + username + "'");
             while(res.next()){
-                patient = new Patients(res.getString("first_name"),
+                patient = new Patients(res.getInt("id"), res.getString("first_name"),
                         res.getString("last_name"), res.getString("address"),
                         res.getString("email"), res.getString("telephone"),
                         res.getInt("age"), res.getString("gender"),
@@ -90,26 +88,6 @@ public class PatientsDaoImpl extends AbstractDao<Patients> implements PatientsDa
             System.out.println(sqle.getErrorCode());
         }
         return patient;
-    }
-
-    @Override
-    public Patients searchByUsername(String username) {
-        Patients pt = null;
-        try{
-            Statement stmt = getConnection().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM PATIENTS WHERE username = '" + username + "'");
-            while(res.next()){
-                pt = new Patients(res.getString("first_name"),
-                        res.getString("last_name"), res.getString("address"),
-                        res.getString("email"), res.getString("telephone"),
-                        res.getInt("age"), res.getString("gender"),
-                        res.getInt("record_id"), res.getString("password"),
-                        res.getString("username"), res.getInt("doctor_id"));
-            }
-        }catch (SQLException sqle){
-            System.out.println(sqle.getErrorCode());
-        }
-        return pt;
     }
 
     public ObservableList<Patients> allPatients(int docId) throws SQLException {
