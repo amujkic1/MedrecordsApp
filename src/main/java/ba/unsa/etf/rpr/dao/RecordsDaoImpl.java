@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.dao;
 import ba.unsa.etf.rpr.business.PatientManager;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
+import ba.unsa.etf.rpr.exceptions.MyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -31,10 +32,11 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
             instance=null;
     }
 
-    public Records findUserRecord(String username){
+    public Records findUserRecord(String username) throws MyException {
         PatientManager patientManager = new PatientManager();
         Patients patient = patientManager.findByUsername(username);
         Records rec = null;
+
         try{
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM RECORDS WHERE patient_id = " + patient.getId());
@@ -47,6 +49,7 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
         }catch (SQLException sqle){
             System.out.println(sqle.getErrorCode());
         }
+
         return rec;
     }
 
