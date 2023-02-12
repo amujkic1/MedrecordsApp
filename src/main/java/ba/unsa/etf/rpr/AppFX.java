@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
+/**
+ * Main class for working with JavaFX framework
+ */
 public class AppFX extends Application {
     public static Stage stg;
     @Override
