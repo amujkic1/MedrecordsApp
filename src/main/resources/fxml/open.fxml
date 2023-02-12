@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+   <stylesheets>
+      <URL value="@/css/glavna.css" />
+   </stylesheets>
+
+   <children>
+      <Label layoutX="14.0" layoutY="31.0" text="Enter username of patient whose record " />
+      <TextField fx:id="username" layoutX="14.0" layoutY="108.0" prefHeight="38.0" prefWidth="269.0" promptText="username" />
+      <Label layoutX="14.0" layoutY="52.0" text="you want to see" />
+      <Button fx:id="open" layoutX="138.0" layoutY="156.0" mnemonicParsing="false" onAction="#open" text="OPEN" />
+      <Button fx:id="cancel" layoutX="208.0" layoutY="156.0" mnemonicParsing="false" onAction="#cancel" text="CANCEL" />
+      <Label layoutX="14.0" layoutY="87.0" textFill="RED" />
+   </children>
+</AnchorPane>
