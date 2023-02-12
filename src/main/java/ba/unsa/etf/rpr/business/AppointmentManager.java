@@ -82,6 +82,7 @@ public class AppointmentManager {
     }
 
     /**
+     *
      * Method that return number of appointments for the patient provided in first parameter
      * with the doctor provided in second parameter
      * @param patient_id
