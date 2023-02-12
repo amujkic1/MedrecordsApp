@@ -54,6 +54,26 @@ public class RecordManagerTest {
         daoFactoryMockedStatic.close();
     }
 
+    @Test
+    void findUserRecord(){
+        String username = "JohnDoe";
+        RecordManager recordManager = new RecordManager();
+
+        NullPointerException nullPointerException = Assertions.assertThrows(NullPointerException.class, ()->{
+            recordManager.findUserRecord(username);}, "Patient does not exist in the database");
+        Assertions.assertEquals("Patient does not exist in the database", nullPointerException.getMessage());
+
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+
