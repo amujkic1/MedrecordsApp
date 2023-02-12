@@ -29,6 +29,11 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
+/**
+ * Controller class for patient record functionalities
+ *
+ * @author Ajna Mujkic
+ */
 public class PatientRecordController implements Initializable {
     @FXML
     private Label name;
@@ -64,6 +69,10 @@ public class PatientRecordController implements Initializable {
         this.who = who;
     }
 
+    /**
+     * Method for back Button
+     * @throws IOException
+     */
     public void back() throws IOException {
         if(who.equals("d")) {
             AfterDoctorLoginController afterDoctorLoginController = new AfterDoctorLoginController(doctor.getUsername(),
@@ -74,6 +83,9 @@ public class PatientRecordController implements Initializable {
         }
     }
 
+    /**
+     * Method for filling choice box
+     */
     public void fill(){
         if (choiceBox.getValue().equals("Allergies")) {
             RecordManager rm = new RecordManager();
@@ -93,24 +105,45 @@ public class PatientRecordController implements Initializable {
         }
     }
 
+    /**
+     * Method for create Button
+     * @throws IOException
+     */
     public void createAppointment() throws IOException {
 
         CreateAppointmentController createAppointmentController = new CreateAppointmentController(patient.getId());
         newWindow("/fxml/createappointment.fxml", createAppointmentController, 0, 0);
 
     }
+
+    /**
+     * Method for add diagnosis Button
+     * @throws IOException
+     */
     public void addDiagnosis() throws IOException {
         if(who.equals("p")){ error.setText("This is not allowed for patients"); return; }
         RecordUpdateController recordUpdateController = new RecordUpdateController(rec.getId(), "diagnosis", who);
         newWindow("/fxml/newdiagnosis.fxml", recordUpdateController, 0, 0);
     }
 
+    /**
+     * Method for add prescription Button
+     * @throws IOException
+     */
     public void addPrescription() throws IOException {
         if(who.equals("p")){ error.setText("This is not allowed for patients"); return; }
         RecordUpdateController recordUpdateController = new RecordUpdateController(rec.getId(), "prescription", who);
         newWindow("/fxml/newdiagnosis.fxml", recordUpdateController, 0, 0);
     }
 
+    /**
+     * Method for opening new window
+     * @param file
+     * @param o
+     * @param close
+     * @param resizable
+     * @throws IOException
+     */
     public void newWindow(String file, Object o, int close, int resizable) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(file));
         if(o != null)
