@@ -8,7 +8,6 @@ import ba.unsa.etf.rpr.domain.Doctors;
 import ba.unsa.etf.rpr.domain.Patients;
 import ba.unsa.etf.rpr.domain.Records;
 import ba.unsa.etf.rpr.exceptions.MyException;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,10 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -61,7 +57,8 @@ public class AfterDoctorLoginController implements Initializable {
     int doctor_id;
     public AfterDoctorLoginController(String DocUsername, int doctor_id) {
         this.DocUsername = DocUsername;
-        this.doctor_id = doctor_id; }
+        this.doctor_id = doctor_id;
+    }
 
     public void searchByUser() throws MyException, IOException {
         if(txtfield.getText().equals("")){ warning.setText("You have to input data for search"); return; }
@@ -79,7 +76,6 @@ public class AfterDoctorLoginController implements Initializable {
             PatientRecordController patientRecordController = new PatientRecordController(patient, rec, doctor, "d");
             newWindow("/fxml/patientrecord.fxml", patientRecordController, 1, 0);
 
-
     }
 
     public void logOut() throws IOException {
@@ -90,6 +86,18 @@ public class AfterDoctorLoginController implements Initializable {
 
         AddRecordController apc = new AddRecordController(doctor_id);
         newWindow("/fxml/addrecord.fxml", apc, 0, 0);
+
+    }
+
+    public void openRecord() throws IOException {
+        OpenRecordController openRecordController = new OpenRecordController();
+        newWindow("/fxml/open.fxml", openRecordController, 0, 0);
+    }
+
+    public void deleteRecord() throws IOException {
+
+        DeleteRecordController deleteController = new DeleteRecordController();
+        newWindow("/fxml/delete.fxml", deleteController, 0, 0);
 
     }
 
