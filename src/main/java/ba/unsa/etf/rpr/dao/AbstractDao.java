@@ -56,7 +56,6 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new MyException(e.getMessage(), e);
-            //throw new RuntimeException(e);
         }
     }
 
