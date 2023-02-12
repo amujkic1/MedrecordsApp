@@ -14,6 +14,11 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
+/**
+ * Controller for adding new Record to database
+ *
+ * @author Ajna Mujkic
+ */
 public class AddRecordController {
 
     @FXML
@@ -38,6 +43,11 @@ public class AddRecordController {
         this.doctor_id = doctor_id;
     }
 
+    /**
+     * Method for add Button
+     * @throws SQLException
+     * @throws MyException
+     */
     public void addRecord() throws SQLException, MyException {
 
         RecordManager rm = new RecordManager();
@@ -65,6 +75,10 @@ public class AddRecordController {
         stage.close();
     }
 
+    /**
+     * Method for cancel Button
+     * @param event
+     */
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancel.getScene().getWindow();
         stage.close();
