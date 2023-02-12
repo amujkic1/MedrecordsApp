@@ -28,7 +28,7 @@
               <menus>
                 <Menu fx:id="file" text="_File">
                   <items>
-                    <MenuItem fx:id="open" mnemonicParsing="false" text="_Open" />
+                    <MenuItem fx:id="open" mnemonicParsing="false" onAction="#openRecord" text="_Open" />
                         <MenuItem fx:id="_new" mnemonicParsing="false" onAction="#addPatient" text="_New" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="close" mnemonicParsing="false" text="_Close" />
@@ -36,7 +36,7 @@
                 </Menu>
                 <Menu fx:id="edit" text="_Edit">
                   <items>
-                    <MenuItem fx:id="delete" mnemonicParsing="false" text="_Delete" />
+                    <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#deleteRecord" text="_Delete" />
                   </items>
                 </Menu>
                 <Menu fx:id="help" text="_Help">
