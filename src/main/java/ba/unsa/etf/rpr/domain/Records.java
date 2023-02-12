@@ -1,5 +1,10 @@
 package ba.unsa.etf.rpr.domain;
 
+/**
+ * All records from database
+ *
+ * @author Ajna Mujkic
+ */
 public class Records implements Idable {
     private int id;
     private int patient_id;
