@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Abstract class that implements core DAO CRUD methods for every entity
+ * @param <T>
+ *
+ * @author Ajna Mujkic
+ */
 public abstract class AbstractDao<T extends Idable> implements Dao<T> {
     private Connection connection;
     private String tableName;
@@ -36,8 +42,19 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         this.connection = connection;
     }
 
+    /**
+     * Method for mapping ResultSet into Object
+     * @param rs
+     * @return
+     * @throws MyException
+     */
     public abstract T rowToObject(ResultSet rs) throws MyException;
 
+    /**
+     * Method for mapping Object into Map
+     * @param object
+     * @return
+     */
     public abstract Map<String, Object> objectToRow(T object);
 
     public T getById(int id) throws MyException{
@@ -104,6 +121,13 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         }
     }
 
+    /**
+     * Utility method for executing any kind of query
+     * @param query
+     * @param params
+     * @return
+     * @throws MyException
+     */
     public List<T> executeQuery(String query, Object[] params) throws MyException {
         try {
             PreparedStatement stmt = getConnection().prepareStatement(query);
@@ -123,6 +147,13 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         }
     }
 
+    /**
+     * Utility for query execution that always return single record
+     * @param query
+     * @param params
+     * @return
+     * @throws MyException
+     */
     public T executeQueryUnique(String query, Object[] params) throws MyException {
         List<T> result = executeQuery(query, params);
         if(result != null && result.size() == 1){
@@ -132,6 +163,11 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         }
     }
 
+    /**
+     * Accepts KV storage of column names and return CSV of columns and question marks for insert statement
+     * @param row
+     * @return
+     */
     private Map.Entry<String, String> prepareInsertParts(Map<String, Object> row){
         StringBuilder columns = new StringBuilder();
         StringBuilder questions = new StringBuilder();
@@ -150,6 +186,11 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T> {
         return new AbstractMap.SimpleEntry<>(columns.toString(), questions.toString());
     }
 
+    /**
+     * Prepare columns for update statement id=?, name=?, ...
+     * @param row
+     * @return
+     */
     private String prepareUpdateParts(Map<String, Object> row){
         StringBuilder columns = new StringBuilder();
 
