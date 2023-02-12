@@ -71,7 +71,6 @@ public class CreateAppointmentController implements Initializable {
             }else{
                 error.setText("You already have an appointment with this doctor");
                 return;
-                //throw new MyException("You already have an appointment with this doctor");
             }
         }
         catch (Exception e){
