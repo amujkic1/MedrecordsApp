@@ -2,6 +2,11 @@ package ba.unsa.etf.rpr.domain;
 
 import java.time.LocalDate;
 
+/**
+ * List of all appointments made by patients
+ *
+ * @author Ajna Mujkic
+ */
 public class Appointments implements Idable{
     int id;
     int patient_id;
