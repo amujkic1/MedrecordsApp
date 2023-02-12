@@ -7,6 +7,11 @@ import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 
+/**
+ * Dao interface for Appointment domain bean
+ *
+ * @author Ajna Mujkic
+ */
 public interface RecordsDao extends Dao<Records> {
     Records findUserRecord(String username) throws MyException;
     ObservableList<String> allergies(int patientID) throws SQLException;
