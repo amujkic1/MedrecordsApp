@@ -23,6 +23,11 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
+/**
+ * Controller for afterdoctorlogin.fxml
+ *
+ * @author Ajna Mujkic
+ */
 public class AfterDoctorLoginController implements Initializable {
     @FXML
     private Button search;
@@ -60,6 +65,11 @@ public class AfterDoctorLoginController implements Initializable {
         this.doctor_id = doctor_id;
     }
 
+    /**
+     * Method for search Button
+     * @throws MyException
+     * @throws IOException
+     */
     public void searchByUser() throws MyException, IOException {
         if(txtfield.getText().equals("")){ warning.setText("You have to input data for search"); return; }
 
@@ -78,10 +88,18 @@ public class AfterDoctorLoginController implements Initializable {
 
     }
 
+    /**
+     * Method for logout Button
+     * @throws IOException
+     */
     public void logOut() throws IOException {
         newWindow("/fxml/sample.fxml", null, 1, 0);
     }
 
+    /**
+     * Method for add Button
+     * @throws IOException
+     */
     public void addPatient() throws IOException {
 
         AddRecordController apc = new AddRecordController(doctor_id);
@@ -89,11 +107,19 @@ public class AfterDoctorLoginController implements Initializable {
 
     }
 
+    /**
+     * Method for open Button from the Menu Bar
+     * @throws IOException
+     */
     public void openRecord() throws IOException {
         OpenRecordController openRecordController = new OpenRecordController();
         newWindow("/fxml/open.fxml", openRecordController, 0, 0);
     }
 
+    /**
+     * Method for delete Button from Menu Bar
+     * @throws IOException
+     */
     public void deleteRecord() throws IOException {
 
         DeleteRecordController deleteController = new DeleteRecordController();
@@ -101,11 +127,26 @@ public class AfterDoctorLoginController implements Initializable {
 
     }
 
+    /**
+     * Method for help Button from Menu Bar
+     * @throws IOException
+     */
     public void help() throws IOException {
         HelpController helpController = new HelpController();
         newWindow("/fxml/help.fxml", helpController, 0, 0);
     }
 
+    /**
+     * Method that opens new window
+     * file parameter takes fxml file
+     * o parameter takes controller class
+     * close parameter decides if previous window is closed
+     * @param file
+     * @param o
+     * @param close
+     * @param resizable
+     * @throws IOException
+     */
     public void newWindow(String file, Object o, int close, int resizable) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(file));
         if(o != null)
