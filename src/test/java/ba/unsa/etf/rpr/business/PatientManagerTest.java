@@ -102,6 +102,19 @@ class PatientManagerTest {
     }
 
 
+    @Test
+    public  void getById() throws MyException {
+
+        int id = -1;
+        PatientManager patientManager = new PatientManager();
+
+        MyException myException = Assertions.assertThrows(MyException.class, ()->{
+            patientManager.getById(id);}, "ID does not exist in the database");
+        Assertions.assertEquals("ID does not exist in the database", myException.getMessage());
+
+    }
+
+
 }
 
 
