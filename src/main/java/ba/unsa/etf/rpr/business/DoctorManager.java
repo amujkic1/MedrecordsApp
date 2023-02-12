@@ -70,6 +70,7 @@ public class DoctorManager {
     }
 
     /**
+     *
      * Method for deleting a Doctor from database
      * @param id
      * @throws MyException
