@@ -7,6 +7,11 @@ import ba.unsa.etf.rpr.exceptions.MyException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Root interface for all DAO classes
+ *
+ * @author Ajna Mujkic
+ */
 public interface Dao<T> {
 
     void add(T item) throws MyException;
