@@ -130,7 +130,6 @@ public class AfterDoctorLoginController implements Initializable {
 
         try {
             patientList.setItems(appointmentManager.haveAppointmentAtDoctor(doctor_id));
-            //patientList.setItems(pdao.allPatients(ddao.searchByUsername(DocUsername).getId()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
