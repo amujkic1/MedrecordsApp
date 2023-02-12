@@ -87,6 +87,7 @@ public class LoginController implements Initializable {
         if(choice.getValue().equals("Patient")) {
 
             String code = pt.validatePatientLogin(username.getText(), password.getText());
+
             if(code.equals("empty user field") || code.equals("username does not exist")){
                 username.setStyle("-fx-border-color: red; -fx-border-width: 2px ;");
                 new animatefx.animation.Shake(username).play();
