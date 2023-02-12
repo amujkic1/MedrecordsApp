@@ -28,7 +28,14 @@ public class DoctorManager {
     }
 
     public Doctors getById(int id) throws MyException {
-        return DaoFactory.doctorDao().getById(id);
+
+        try{
+            return DaoFactory.doctorDao().getById(id);
+        }catch (MyException e){
+            throw new MyException("ID does not exist in the database");
+        }
+
+        //return DaoFactory.doctorDao().getById(id);
     }
 
     public void delete(int id) throws MyException {
