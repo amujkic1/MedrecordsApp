@@ -12,12 +12,21 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Ajna Mujkic
+ * CLI (Command Line Interface) implementation in following class
+ */
 public class App {
-
+    /**
+     * Defining final variables to describe all code having options
+     */
     private static final Option appointments = new Option("doc", "get-doctors", false, "Print all doctors");
     private static final Option findRecord = new Option("rec", "get-record", false, "Find record by patient id");
     private static final Option addRecord = new Option("addr", "add-record", false, "Add new record");
 
+    /**
+     * @param options
+     */
     public static void printFormattedOptions(Options options) {
         HelpFormatter helpFormatter = new HelpFormatter();
         PrintWriter printWriter = new PrintWriter(System.out);
@@ -34,6 +43,10 @@ public class App {
         return options;
     }
 
+    /**
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception{
         Options options = addOptions();
         CommandLineParser commandLineParser = new DefaultParser();
