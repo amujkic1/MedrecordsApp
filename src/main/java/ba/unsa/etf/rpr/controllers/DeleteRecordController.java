@@ -9,6 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller for deleting records
+ *
+ * @author Ajna Mujkic
+ */
 public class DeleteRecordController {
 
     @FXML
@@ -20,6 +25,10 @@ public class DeleteRecordController {
 
     public DeleteRecordController(){}
 
+    /**
+     * Method for delete Button
+     * @throws MyException
+     */
     public void deleteUser() throws MyException {
 
         Stage stage = (Stage) cancel.getScene().getWindow();
@@ -33,6 +42,10 @@ public class DeleteRecordController {
 
     }
 
+    /**
+     * Method for cancel Button
+     * @param event
+     */
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancel.getScene().getWindow();
         stage.close();
