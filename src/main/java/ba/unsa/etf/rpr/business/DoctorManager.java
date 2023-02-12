@@ -28,23 +28,19 @@ public class DoctorManager {
     }
 
     public Doctors getById(int id) throws MyException {
-
         try{
             return DaoFactory.doctorDao().getById(id);
         }catch (MyException e){
             throw new MyException("ID does not exist in the database");
         }
-
-        //return DaoFactory.doctorDao().getById(id);
     }
 
     public void delete(int id) throws MyException {
         DaoFactory.doctorDao().delete(id);
     }
 
-public Doctors searchByUsername(String username){
+    public Doctors searchByUsername(String username){
     return DaoFactory.doctorDao().searchByUsername(username);
 }
-
 
 }
