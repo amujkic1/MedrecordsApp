@@ -9,6 +9,11 @@ import java.sql.Statement;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * MySQL implementation of the DAO
+ *
+ * @author Ajna Mujkic
+ */
 public class DoctorsDaoImpl extends AbstractDao<Doctors> implements DoctorsDao {
     private static DoctorsDaoImpl instance = null;
     private DoctorsDaoImpl(){
