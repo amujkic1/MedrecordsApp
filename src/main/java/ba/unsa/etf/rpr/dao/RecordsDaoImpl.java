@@ -41,7 +41,7 @@ public class RecordsDaoImpl extends AbstractDao<Records> implements RecordsDao {
             Statement stmt = getConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM RECORDS WHERE patient_id = " + patient.getId());
             while(res.next()){
-                rec = new Records(res.getInt("patient_id"),
+                rec = new Records(res.getInt("id"), res.getInt("patient_id"),
                         res.getInt("doctor_id"), res.getString("diagnosis"),
                         res.getString("allergies"), res.getString("prescriptions"),
                         res.getDouble("height"), res.getDouble("weight"), res.getString("blood"));
