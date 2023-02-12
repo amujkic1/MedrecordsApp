@@ -42,7 +42,11 @@ public class RecordManager {
     }
 
     public Records findUserRecord(String username) throws MyException {
-        return DaoFactory.recordsDao().findUserRecord(username);
+        try {
+            return DaoFactory.recordsDao().findUserRecord(username);
+        } catch (NullPointerException e){
+            throw new NullPointerException("Patient does not exist in the database");
+        }
     }
     public ObservableList<String> prescriptions(int patientID) throws SQLException{
         return DaoFactory.recordsDao().prescriptions(patientID);
