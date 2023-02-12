@@ -16,6 +16,11 @@ import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for adding new Patient to database
+ *
+ * @author Ajna Mujkic
+ */
 public class AddPatientController implements Initializable {
     @FXML
     private TextField first_name_box;
@@ -32,35 +37,40 @@ public class AddPatientController implements Initializable {
     @FXML
     private TextField gender_box;
     @FXML
-    private TextField username_box;
-    @FXML
-    private TextField password_box;
-    @FXML
     private Button addbttn;
     @FXML
     private Button cancelbttn;
     @FXML
     private Label error;
     int doctor_id;
+    String username;
+    String password;
 
 private Connection conn;
 
-    public AddPatientController(int doctor_id){
+    public AddPatientController(int doctor_id, String username, String password){
+
         this.doctor_id = doctor_id;
+        this.username = username;
+        this.password = password;
+
     }
 
+    /**
+     * Method for add Button
+     * @throws MyException
+     */
     public void addPatientToBase() throws MyException {
         PatientManager p = new PatientManager();
         DoctorManager doc = new DoctorManager();
 
         Stage stage = (Stage) addbttn.getScene().getWindow();
 
-        p.validateUsername(username_box.getText());
+        p.validateUsername(username);
 
         Patients patient = new Patients(first_name_box.getText(), last_name_box.getText(),
                 address_box.getText(), email_box.getText(), telephone_box.getText(), Integer.parseInt(age_box.getText()),
-                gender_box.getText(), 0, password_box.getText(),
-                username_box.getText(), doctor_id);
+                gender_box.getText(), 0, password, username, doctor_id);
 
         p.add(patient);
 
@@ -68,6 +78,10 @@ private Connection conn;
 
     }
 
+    /**
+     * Method for cancel Button
+     * @param event
+     */
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancelbttn.getScene().getWindow();
         stage.close();
