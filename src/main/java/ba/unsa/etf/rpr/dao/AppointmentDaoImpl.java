@@ -13,6 +13,11 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * MySQL implementation of the DAO
+ *
+ * @author Ajna Mujkic
+ */
 public class AppointmentDaoImpl extends AbstractDao<Appointments> implements AppointmentDao{
 
     private static AppointmentDaoImpl instance = null;
