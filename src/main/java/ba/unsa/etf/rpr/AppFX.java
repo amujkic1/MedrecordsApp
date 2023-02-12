@@ -11,7 +11,6 @@ import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class AppFX extends Application {
     public static Stage stg;
-    private Scene scene;
     @Override
     public void start(Stage stage) throws Exception {
         stg=stage;
@@ -23,15 +22,7 @@ public class AppFX extends Application {
         stage.setScene(new Scene(root,USE_PREF_SIZE,USE_PREF_SIZE));
         stage.show();
 
-        /*System.out.println("test");
-        Doctors doc = new Doctors(1,"a", "b", "c", "d", "123", 22, "f",
-                "e", "d", "d");
-        DoctorManager dm = new DoctorManager();
-        dm.add(doc);*/
-
     }
-
-
     public static void main(String[] args) {
         launch(args);
     }
