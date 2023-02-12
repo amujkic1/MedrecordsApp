@@ -153,7 +153,6 @@ public class PatientRecordController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
-
     }
 
 }
