@@ -15,6 +15,11 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for updating records
+ *
+ * @author Ajna Mujkic
+ */
 public class RecordUpdateController implements Initializable {
     @FXML
     private TextArea txtarea;
@@ -34,6 +39,11 @@ public class RecordUpdateController implements Initializable {
         this.who = who;
     }
 
+    /**
+     * Method for add Button
+     * @throws SQLException
+     * @throws MyException
+     */
     public void add() throws SQLException, MyException {
 
         Stage stage = (Stage) add.getScene().getWindow();
@@ -53,6 +63,10 @@ public class RecordUpdateController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Method for cancel Button
+     * @param event
+     */
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancel.getScene().getWindow();
         stage.close();
