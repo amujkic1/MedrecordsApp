@@ -10,7 +10,6 @@ import java.util.List;
 
 public class PatientManager {
 
-
     public void validateUsername(String username) throws MyException {
         if(username.length() < 5 || username.length() > 20){
             throw new MyException("Username must be between 5 and 20 characters");
