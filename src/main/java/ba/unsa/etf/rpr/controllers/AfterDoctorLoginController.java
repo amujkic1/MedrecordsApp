@@ -93,6 +93,11 @@ public class AfterDoctorLoginController implements Initializable {
 
     }
 
+    public void help() throws IOException {
+        HelpController helpController = new HelpController();
+        newWindow("/fxml/help.fxml", helpController, 0, 0);
+    }
+
     public void newWindow(String file, Object o, int close, int resizable) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(file));
         if(o != null)
