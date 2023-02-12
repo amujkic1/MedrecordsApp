@@ -26,6 +26,11 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
+/**
+ * Controller class for login
+ *
+ * @author Ajna Mujkic
+ */
 public class LoginController implements Initializable {
     @FXML
     private Button button;
@@ -47,10 +52,22 @@ public class LoginController implements Initializable {
     private Label error;
 
     public LoginController(){}
+
+    /**
+     * Method for login Button
+     * @param event
+     * @throws IOException
+     * @throws MyException
+     */
     public void login(ActionEvent event) throws IOException, MyException {
         validateLogin();
     }
 
+    /**
+     * Method that checks if login data are correct
+     * @throws IOException
+     * @throws MyException
+     */
     public void validateLogin() throws IOException, MyException {
 
         DoctorManager doc = new DoctorManager();
@@ -118,6 +135,11 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Method for register Button
+     * @throws MyException
+     * @throws IOException
+     */
     public void register() throws MyException, IOException {
         if(choice.getValue()==null){ error.setText("This field is mandatory"); return; };
 
@@ -137,11 +159,36 @@ public class LoginController implements Initializable {
             }
         }
         else if(choice.getValue().equals("Patient")){
-            AddPatientController apc = new AddPatientController(0);
-            newWindow("/fxml/addpatient.fxml", apc, 0, 1);
+
+            PatientManager patientManager = new PatientManager();
+
+            if(username.getText().equals("") || password.getText().equals("")){
+                error.setText("Enter username and password");
+                return;
+            }
+            else if(patientManager.findByUsername(username.getText())==null) {
+
+                AddPatientController apc = new AddPatientController(0, username.getText(), password.getText());
+                newWindow("/fxml/addpatient.fxml", apc, 0, 1);
+
+            }else{
+                error.setText("Username already exists");
+                return;
+            }
+
+            //AddPatientController apc = new AddPatientController(0, username.getText(), password.getText());
+            //newWindow("/fxml/addpatient.fxml", apc, 0, 1);
         }
     }
 
+    /**
+     * Method for opening new window
+     * @param file
+     * @param o
+     * @param close
+     * @param resizable
+     * @throws IOException
+     */
     public void newWindow(String file, Object o, int close, int resizable) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(file));
         if(o != null)
