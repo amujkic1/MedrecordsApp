@@ -33,6 +33,11 @@ public class OpenRecordController {
 
     public OpenRecordController(){}
 
+    /**
+     * Method for open Button
+     * @throws MyException
+     * @throws IOException
+     */
     public void open() throws MyException, IOException {
         Stage stage = (Stage) cancel.getScene().getWindow();
 
@@ -56,11 +61,23 @@ public class OpenRecordController {
         stage.close();
     }
 
+    /**
+     * Method for cancel Button
+     * @param event
+     */
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancel.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Method that opens new window
+     * @param file
+     * @param o
+     * @param close
+     * @param resizable
+     * @throws IOException
+     */
     public void newWindow(String file, Object o, int close, int resizable) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(file));
         if(o != null)
