@@ -28,6 +28,19 @@ public class Records implements Idable {
         this.blood = blood;
     }
 
+    public Records(int id, int patient_id, int doctor_id, String diagnosis, String allergies, String prescriptions,
+                   Double height, Double weight, String blood) {
+        this.id = id;
+        this.patient_id = patient_id;
+        this.doctor_id = doctor_id;
+        this.diagnosis = diagnosis;
+        this.allergies = allergies;
+        this.prescriptions = prescriptions;
+        this.height = height;
+        this.weight = weight;
+        this.blood = blood;
+    }
+
     public int getPatient_id() {
         return patient_id;
     }
