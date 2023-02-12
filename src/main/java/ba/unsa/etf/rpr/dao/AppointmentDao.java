@@ -5,6 +5,11 @@ import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 
+/**
+ * Dao interface for Appointment domain bean
+ *
+ * @author Ajna Mujkic
+ */
 public interface AppointmentDao extends Dao<Appointments>{
 
     Appointments searchByPatient(int patient_id) throws SQLException;
