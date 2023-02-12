@@ -6,7 +6,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+   <stylesheets>
+      <URL value="@/css/glavna.css" />
+   </stylesheets>
+
+
    <children>
       <DatePicker fx:id="datepicker" layoutX="14.0" layoutY="69.0" prefHeight="31.0" prefWidth="262.0" />
       <Label layoutX="14.0" layoutY="36.0" text="Choose your appointment date" />
