@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 
     <stylesheets>
         <URL value="@/css/glavna.css" />
@@ -47,20 +47,20 @@
                </children></AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <TextField fx:id="address_box" layoutX="21.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="address" />
-                  <Label fx:id="address" layoutX="21.0" layoutY="14.0" text="Address" />
+                  <TextField fx:id="address_box" layoutX="29.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="address" />
+                  <Label fx:id="address" layoutX="29.0" layoutY="14.0" text="Address" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="email_box" layoutX="21.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="e-mail" />
-                  <Label fx:id="email" layoutX="21.0" layoutY="14.0" text="E-mail" />
+                  <TextField fx:id="email_box" layoutX="32.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="e-mail" />
+                  <Label fx:id="email" layoutX="32.0" layoutY="4.0" text="E-mail" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="age_box" layoutX="22.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="age" />
-                  <Label fx:id="age" layoutX="22.0" layoutY="4.0" text="Age" />
+                  <TextField fx:id="age_box" layoutX="36.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="age" />
+                  <Label fx:id="age" layoutX="36.0" layoutY="4.0" text="Age" />
                </children>
             </AnchorPane>
          </children>
@@ -78,22 +78,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="gender" layoutX="14.0" layoutY="14.0" text="Gender" />
-                  <TextField fx:id="gender_box" layoutX="14.0" layoutY="42.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="gender" />
-               </children>
-            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="username_box" layoutX="14.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="username" />
-                  <Label fx:id="username" layoutX="14.0" layoutY="14.0" text="Username" />
+                  <TextField fx:id="gender_box" layoutX="45.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="gender" />
+                  <Label fx:id="gender" layoutX="48.0" layoutY="7.0" text="Gender" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="password_box" layoutX="14.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="password" />
-                  <Label fx:id="password" layoutX="12.0" text="Password" />
+                  <Button fx:id="addbttn" defaultButton="true" layoutX="48.0" layoutY="26.0" mnemonicParsing="false" onAction="#addPatientToBase" text="ADD" />
                </children></AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -103,8 +97,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="cancelbttn" cancelButton="true" layoutX="89.0" layoutY="21.0" mnemonicParsing="false" onAction="#cancel" text="CANCEL" />
-                  <Button fx:id="addbttn" defaultButton="true" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#addPatientToBase" text="ADD" />
+                  <Button fx:id="cancelbttn" cancelButton="true" layoutX="-16.0" layoutY="26.0" mnemonicParsing="false" onAction="#cancel" text="CANCEL" />
                </children>
             </AnchorPane>
          </children>
