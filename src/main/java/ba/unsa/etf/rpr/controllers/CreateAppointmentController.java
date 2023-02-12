@@ -21,6 +21,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for creating new appointment
+ * @author Ajna Mujkic
+ */
 public class CreateAppointmentController implements Initializable {
 
     @FXML
@@ -39,6 +43,10 @@ public class CreateAppointmentController implements Initializable {
         this.patient = patient_id;
     }
 
+    /**
+     * Method for create Button
+     * @throws MyException
+     */
     public void createAppointment() throws MyException {
 
         int count = 0;
@@ -81,6 +89,10 @@ public class CreateAppointmentController implements Initializable {
 
     }
 
+    /**
+     * Method for cancel Button
+     * @param event
+     */
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancel.getScene().getWindow();
         stage.close();
