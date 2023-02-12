@@ -1,5 +1,10 @@
 package ba.unsa.etf.rpr.domain;
 
+/**
+ * All patients from database
+ *
+ * @author Ajna Mujkic
+ */
 public class Patients implements Idable {
     private int id;
     private String first_name;
