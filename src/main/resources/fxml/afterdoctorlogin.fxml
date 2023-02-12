@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+    <stylesheets>
+        <URL value="@/css/glavna.css" />
+    </stylesheets>
+
+    <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="415.0" layoutY="226.0" prefHeight="168.0" prefWidth="185.0" />
+            <MenuBar fx:id="menubar" layoutY="-2.0" prefHeight="32.0" prefWidth="600.0">
+              <menus>
+                <Menu fx:id="file" text="_File">
+                  <items>
+                    <MenuItem fx:id="open" mnemonicParsing="false" text="_Open" />
+                        <MenuItem fx:id="_new" mnemonicParsing="false" onAction="#addPatient" text="_New" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="close" mnemonicParsing="false" text="_Close" />
+                  </items>
+                </Menu>
+                <Menu fx:id="edit" text="_Edit">
+                  <items>
+                    <MenuItem fx:id="delete" mnemonicParsing="false" text="_Delete" />
+                  </items>
+                </Menu>
+                <Menu fx:id="help" text="_Help">
+                  <items>
+                    <MenuItem fx:id="about" mnemonicParsing="false" onAction="#help" text="_About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <TextField fx:id="txtfield" layoutX="50.0" layoutY="58.0" onAction="#searchByUser" prefHeight="31.0" prefWidth="187.0" />
+            <ImageView fitHeight="32.0" fitWidth="27.0" layoutX="14.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/search5.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="search" layoutX="274.0" layoutY="58.0" mnemonicParsing="false" onAction="#searchByUser" text="search" />
+            <Button fx:id="addbutton" layoutX="348.0" layoutY="58.0" mnemonicParsing="false" onAction="#addPatient" text="add" />
+            <ListView fx:id="patientList" layoutY="114.0" prefHeight="286.0" prefWidth="326.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="400.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/doctor.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="logout" layoutX="508.0" layoutY="58.0" mnemonicParsing="false" onAction="#logOut" text="Log Out" textFill="WHITE" />
+            <Label fx:id="warning" layoutX="50.0" layoutY="37.0" textFill="RED" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
