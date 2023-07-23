@@ -1,4 +1,4 @@
-# medrecords
+# MedrecordsApp
 <p> Simple app for creating and managing medical records</p>
 <br>
 
